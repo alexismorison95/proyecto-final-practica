@@ -26,9 +26,13 @@ const pgPool = new pg.Pool({
 const auth = (req, res, next) => {
 
     if (req.session.id_usuario) {
+
         return next();
+
     } else {
+
         return res.status(401).json({ res: "Debe iniciar sesion" });
+
     }
 
 }
@@ -37,7 +41,7 @@ const auth = (req, res, next) => {
 // MIDDLEWARES
 app.use(morgan('dev'));
 app.use(express.json());
-app.use(cors({ origin: 'http://localhost:4200', credentials: true })); // Desarrollo
+app.use(cors({ origin: 'https://resttesttest.com/', credentials: true })); // Desarrollo
 app.use(express.urlencoded({ extended: false }));
 app.use(session({
     store: new pgSession({
@@ -53,6 +57,15 @@ app.use(session({
 
 // RUTAS
 app.use('/api/', require('./rutas/login.rutas'));
+app.use('/api/', auth, require('./rutas/logout.rutas'));
+//app.use('/api/', auth, require('./rutas/usuario.rutas'));
+app.use('/api/', auth, require('./rutas/conductor.rutas'));
+// app.use('/api/', auth, require('./rutas/dominio.rutas'));
+// app.use('/api/', auth, require('./rutas/examinador.rutas'));
+// app.use('/api/', auth, require('./rutas/equipo.rutas'));
+// app.use('/api/', auth, require('./rutas/periodoutilizable.rutas'));
+// app.use('/api/', auth, require('./rutas/prestamo.ruta'));
+// app.use('/api/', auth, require('./rutas/prueba.rutas'));
 
 
 // ENCENDER SERVIDOR

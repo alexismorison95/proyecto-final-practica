@@ -1,10 +1,13 @@
 const express = require('express');
 const conexion = require('../configuraciones/db.conexion');
 
+// Nos conectamos con el usuario login_user de la BBDD para iniciar sesion
 db = conexion("login_user");
 
 const rutasLogin = express.Router();
 
+
+// DEFINICION DE RUTAS
 // LOGIN
 rutasLogin.post('/login', async(req, res) => {
 
@@ -18,21 +21,21 @@ rutasLogin.post('/login', async(req, res) => {
 
             req.session.id_usuario = respuesta.rows[0].id;
             req.session.rol = respuesta.rows[0].tipousuario;
-            console.log("Logueado como", req.session.rol);
+            console.log("Logueado como", req.session.rol, "- Id usuario", req.session.id_usuario);
 
             res.status(200).json(respuesta.rows[0]);
 
         } else {
 
-            res.status(500).json({ res: "usuario o contraseñia no validos" });
+            res.status(500).json({ res: "Usuario o contraseñia no validos" });
 
         }
 
     } catch (error) {
 
-        console.log(error);
+        console.log(error.stack);
 
-        res.status(500).json('Internal Server Error', error);
+        res.status(500).json('Internal Server Error');
 
     }
 

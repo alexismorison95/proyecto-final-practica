@@ -10,9 +10,9 @@ CREATE USER login_user PASSWORD 'asfAFsaf_@_423a.a';
 ------------------------------------------------------------------------------------------ PERMISOS
 
 -- ADMINISTRADOR_ROL
---GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO administrador_rol;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO administrador_rol;
 --GRANT SELECT,INSERT,UPDATE,DELETE ON TABLE prueba TO administrador_rol;
-GRANT SELECT ON TABLE conductor, dominio, equipo, examinador, periodoutilizable, prestamo, prueba, usuario TO administrador_rol;
+--GRANT SELECT ON TABLE conductor, dominio, equipo, examinador, periodoutilizable, prestamo, prueba, usuario TO administrador_rol;
 
 
 -- EXAMINADOR_ROL
