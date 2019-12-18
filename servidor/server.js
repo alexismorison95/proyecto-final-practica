@@ -58,8 +58,9 @@ app.use(session({
 // RUTAS
 app.use('/api/', require('./rutas/login.rutas'));
 app.use('/api/', auth, require('./rutas/logout.rutas'));
-//app.use('/api/', auth, require('./rutas/usuario.rutas'));
 app.use('/api/', auth, require('./rutas/conductor.rutas'));
+
+//app.use('/api/', auth, require('./rutas/usuario.rutas'));
 // app.use('/api/', auth, require('./rutas/dominio.rutas'));
 // app.use('/api/', auth, require('./rutas/examinador.rutas'));
 // app.use('/api/', auth, require('./rutas/equipo.rutas'));
