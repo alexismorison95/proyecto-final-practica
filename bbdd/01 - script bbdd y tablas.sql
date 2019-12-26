@@ -5,7 +5,8 @@
 -- serial para autoincremental
 create table usuario (
 	id serial primary key,
-	nombre varchar not null,
+	nombreReal varchar not null,
+	nombreUsuario varchar not null,
 	contrasenia varchar not null,
 	tipousuario varchar
 );

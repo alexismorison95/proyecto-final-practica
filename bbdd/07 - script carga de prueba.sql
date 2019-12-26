@@ -1,10 +1,10 @@
 -- USUARIO
 
-INSERT INTO usuario(nombre, contrasenia, tipousuario) VALUES ('juan', '1234', 'administrador_rol');
-INSERT INTO usuario(nombre, contrasenia, tipousuario) VALUES ('pedro', '1234', 'administrativo_rol');
-INSERT INTO usuario(nombre, contrasenia, tipousuario) VALUES ('carlos', '1234', 'examinador_rol');
-INSERT INTO usuario(nombre, contrasenia, tipousuario) VALUES ('usuario123', '1234', 'examinador_rol');
-INSERT INTO usuario(nombre, contrasenia, tipousuario) VALUES ('laura', '1234', 'examinador_rol');
+INSERT INTO usuario(nombreReal, nombreUsuario, contrasenia, tipousuario) VALUES ('martinez juan', 'juan', '1234', 'administrador_rol');
+INSERT INTO usuario(nombreReal, nombreUsuario, contrasenia, tipousuario) VALUES ('monzon pedro', 'pedro', '1234', 'administrativo_rol');
+INSERT INTO usuario(nombreReal, nombreUsuario, contrasenia, tipousuario) VALUES ('cosso carlos', 'carlos', '1234', 'examinador_rol');
+INSERT INTO usuario(nombreReal, nombreUsuario, contrasenia, tipousuario) VALUES ('morison alexis', 'usuario123', '1234', 'examinador_rol');
+INSERT INTO usuario(nombreReal, nombreUsuario, contrasenia, tipousuario) VALUES ('kloss laura', 'laura', '1234', 'examinador_rol');
 
 
 -- CONDUCTOR

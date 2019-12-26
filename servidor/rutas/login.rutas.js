@@ -14,7 +14,7 @@ rutasLogin.post('/login', async(req, res) => {
     try {
 
         // Consulta
-        const respuesta = await db.query('select * from usuario where nombre = $1 AND contrasenia = $2;', [req.body.nombre, req.body.contrasenia]);
+        const respuesta = await db.query('select * from usuario where nombreUsuario = $1 AND contrasenia = $2;', [req.body.nombre, req.body.contrasenia]);
 
         // Si trajo un usuario carga su id y rol en la sesion y envia al cliente el usuario
         if (respuesta.rows[0]) {
@@ -35,8 +35,22 @@ rutasLogin.post('/login', async(req, res) => {
 
         console.log(error.stack);
 
-        res.status(500).json('Internal Server Error');
+        res.status(500).json('Error interno del servidor');
 
+    }
+
+});
+
+
+// Como hay que tener seguridad, si la persona hace f5 de la pagina, debera volver a iniciar sesion
+// Esta funcion se encarga de verificar si hay una sesion creada
+rutasLogin.get('/f5', (req, res) => {
+
+    if(req.session.id_usuario) {
+        res.status(500).json({res: 'Debe volver a inciar sesion'});
+    }
+    else {
+        res.status(200).json({res: 'Sesion no iniciada'});
     }
 
 });

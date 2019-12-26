@@ -1,0 +1,92 @@
+<mat-toolbar color="primary">
+
+    <h1>TP Final</h1>
+    <span class="menu-spacer"></span>
+
+    <button mat-button>Inicio</button>
+
+    <button mat-button>Usuarios</button>
+
+    <button mat-button>Examinadores</button>
+
+    <!-- MENU EQUIPOS -->
+    <button mat-button [matMenuTriggerFor]="equipos" [disabled]="mivar">
+        Equipos
+        <mat-icon>expand_more</mat-icon>
+    </button>
+    <mat-menu #equipos="matMenu">
+        <button mat-menu-item>
+            <mat-icon>person</mat-icon>
+            <span>Ver</span>
+        </button>
+        <button mat-menu-item>
+            <mat-icon>build</mat-icon>
+            <span>Vigencias</span>
+        </button>
+    </mat-menu>
+
+    <button mat-button>Préstamos</button>
+
+    <!-- MENU PRUEBAS -->
+    <button mat-button [matMenuTriggerFor]="pruebas">
+        Pruebas
+        <mat-icon>expand_more</mat-icon>
+    </button>
+    <mat-menu #pruebas="matMenu">
+        <button mat-menu-item>
+            <mat-icon>library_add</mat-icon>
+            <span>Nueva</span>
+        </button>
+        <button mat-menu-item>
+            <mat-icon>library_books</mat-icon>
+            <span>Verificación</span>
+        </button>
+    </mat-menu>
+
+    <!-- MENU REPORTES -->
+    <button mat-button [matMenuTriggerFor]="reporte">
+        Reportes
+        <mat-icon>expand_more</mat-icon>
+    </button>
+    <mat-menu #reporte="matMenu">
+        <button mat-menu-item>
+            <mat-icon>person</mat-icon>
+            <span>DNI - Nombre</span>
+        </button>
+        <button mat-menu-item>
+            <mat-icon>event</mat-icon>
+            <span>Entre fechas</span>
+        </button>
+        <button mat-menu-item>
+            <mat-icon>build</mat-icon>
+            <span>Personalizado</span>
+        </button>
+        <button mat-menu-item>
+            <mat-icon>pie_chart</mat-icon>
+            <span>Gráficos</span>
+        </button>
+    </mat-menu>
+
+    <span class="example-fill-remaining-space"></span>
+    <!-- MENU DE USUARIO -->
+    <button mat-button [matMenuTriggerFor]="usuario" matTooltip="Mi Cuenta">
+        {{ loginService.usuarioActivo.nombrereal | uppercase }}
+        <mat-icon>expand_more</mat-icon>
+    </button>
+    <mat-menu #usuario="matMenu">
+        <button mat-menu-item>
+            <mat-icon>account_circle</mat-icon>
+            <span>Perfil</span>
+        </button>
+        <button mat-menu-item>
+            <mat-icon>calendar_today</mat-icon>
+            <span>Calendario</span>
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="cerrarSesion()">
+            <mat-icon>power_settings_new</mat-icon>
+            <span>Cerrar Sesión</span>
+        </button>
+    </mat-menu>
+
+</mat-toolbar>

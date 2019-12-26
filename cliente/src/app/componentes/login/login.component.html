@@ -1,0 +1,27 @@
+<div class="container1">
+
+    <br> <br> <br>
+
+    <form [formGroup]="formGroup">
+
+        <mat-form-field>
+            <input matInput placeholder="Usuario" formControlName="nombreUsuario">
+        </mat-form-field>
+
+        <br>
+
+        <mat-form-field>
+            <input matInput placeholder="Contraseña" type="password" formControlName="contraseniaUsuario">
+        </mat-form-field>
+
+        <br>
+
+        <button [disabled]="formGroup.invalid" (click)="register()" mat-raised-button type="submit" class="boton-sesion" color="primary" >Iniciar Sesión</button>
+
+    </form>
+
+    <br>
+
+    <a style="font-size: small;" href="">¿Ha olvidado su contraseña?</a>
+
+</div>

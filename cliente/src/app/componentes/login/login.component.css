@@ -1,0 +1,19 @@
+.container1{
+    margin-top: 0%;
+    text-align: center;
+    height: 100%;
+    vertical-align: middle;
+    background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(135,135,252,0.25252099130667893) 0%, rgba(255,255,255,1) 100%);
+}
+
+.espacio{
+    margin-left: 20px;
+}
+
+mat-form-field{
+    width: 300px;
+}
+
+.boton-sesion{
+    min-width: 300px;
+}

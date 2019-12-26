@@ -50,7 +50,7 @@ CREATE OR REPLACE FUNCTION insertar_usuario() RETURNS trigger AS
 $$
 BEGIN
 
-	NEW.nombre = LOWER(NEW.nombre);
+	NEW.nombreReal = LOWER(NEW.nombreReal);
 	
 	NEW.tipousuario = LOWER(NEW.tipousuario);
  

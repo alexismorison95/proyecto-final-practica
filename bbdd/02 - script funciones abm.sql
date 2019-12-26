@@ -3,11 +3,11 @@
 
 -- FUNCIONES USUARIO
 
-CREATE OR REPLACE FUNCTION alta_usuario(nombre_nuevo varchar, contrasenia_nuevo varchar, tipousuario_nuevo varchar) RETURNS SETOF usuario AS
+CREATE OR REPLACE FUNCTION alta_usuario(nombreReal_nuevo varchar, nombreUsuario_nuevo varchar, contrasenia_nuevo varchar, tipousuario_nuevo varchar) RETURNS SETOF usuario AS
 $$
 BEGIN
-	RETURN QUERY INSERT INTO usuario(nombre, contrasenia, tipousuario) 
-								VALUES (nombre_nuevo, contrasenia_nuevo, tipousuario_nuevo) RETURNING *;
+	RETURN QUERY INSERT INTO usuario(nombreReal, nombreUsuario, contrasenia, tipousuario) 
+								VALUES (nombreReal_nuevo, nombreUsuario_nuevo, contrasenia_nuevo, tipousuario_nuevo) RETURNING *;
 END;
 $$
 LANGUAGE 'plpgsql';
@@ -24,11 +24,10 @@ LANGUAGE 'plpgsql';
 
 --------------------------
 
-CREATE OR REPLACE FUNCTION modificacion_usuario(id_usuario int, nombre_nuevo varchar, contrasenia_nuevo varchar, tipousuario_nuevo varchar) RETURNS SETOF usuario AS
+CREATE OR REPLACE FUNCTION modificacion_usuario(id_usuario int, nombreReal_nuevo varchar, nombreUsuario_nuevo varchar, contrasenia_nuevo varchar, tipousuario_nuevo varchar) RETURNS SETOF usuario AS
 $$
 BEGIN
-	RETURN QUERY UPDATE usuario SET nombre = nombre_nuevo, contrasenia = contrasenia_nuevo,
-									tipousuario = tipousuario_nuevo WHERE id = id_usuario RETURNING *;
+	RETURN QUERY UPDATE usuario SET nombreReal = nombreReal_nuevo, nombreUsuario = nombreUsuario_nuevo, contrasenia = contrasenia_nuevo, tipousuario = tipousuario_nuevo WHERE id = id_usuario RETURNING *;
 END;
 $$
 LANGUAGE 'plpgsql';

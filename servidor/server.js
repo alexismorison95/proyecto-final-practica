@@ -39,10 +39,11 @@ const auth = (req, res, next) => {
 
 
 // MIDDLEWARES
+
 app.use(morgan('dev'));
 app.use(express.json());
-app.use(cors({ origin: 'https://resttesttest.com/', credentials: true })); // Desarrollo
-app.use(express.urlencoded({ extended: false }));
+app.use(cors({ origin: 'http://localhost:4200', credentials: true })); // Desarrollo
+//app.use(express.urlencoded({ extended: false }));
 app.use(session({
     store: new pgSession({
         pool: pgPool,
