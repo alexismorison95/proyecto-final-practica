@@ -1,0 +1,24 @@
+table {
+    width: 100%;
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+td, th {
+    width: 25%;
+}
+
+.example-fill-remaining-space {
+    flex: 1 1 auto;
+}
+
+.submenu {
+    height: 50px;
+}
+
+.highlightTableColor {
+    background-color: rgb(233, 235, 252);
+}

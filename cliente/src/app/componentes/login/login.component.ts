@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from "../../servicios/login.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ export class LoginComponent implements OnInit {
 
   public formGroup: FormGroup;
 
-  constructor( private formBuilder: FormBuilder, private loginService: LoginService ) { }
+  constructor( private formBuilder: FormBuilder, private loginService: LoginService, private router: Router ) { }
 
   ngOnInit() {
 
@@ -32,13 +33,14 @@ export class LoginComponent implements OnInit {
 
     const user = this.formGroup.value;
 
-    const usuario = {nombre: user.nombreUsuario, contrasenia: user.contraseniaUsuario};
+    const usuario = { nombre: user.nombreUsuario, contrasenia: user.contraseniaUsuario };
 
     this.loginService.login(usuario).subscribe(res => {
 
-      console.table(res);
-      this.loginService.logueado = true;
-      this.loginService.usuarioActivo = res;
+      this.loginService.setLogueado(true);
+      this.loginService.setUsuarioActivo(res);
+
+      this.router.navigate(['/inicio']);
 
     }, err => {
 

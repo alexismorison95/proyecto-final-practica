@@ -1,10 +1,6 @@
 <!-- Si esta logueado muestro el navbar -->
-<ng-container *ngIf="loginService.logueado; else elseTemplate">
-    <app-navbar></app-navbar>
-</ng-container>
-<!-- Sino muestro el login -->
-<ng-template #elseTemplate>
-    <app-login></app-login>
-</ng-template>
+
+<app-navbar *ngIf="loginService.isLogueado()"></app-navbar>
+
 
 <router-outlet></router-outlet>

@@ -3,6 +3,14 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+// GUARD
+import { GuardService } from "./servicios/guard.service";
+import { GuardChildService } from "./servicios/guard-child.service";
+
+// SERVICIOS
+import { LoginService } from "./servicios/login.service";
+import { UsuariosService } from "./servicios/usuarios/usuarios.service";
+
 // MATERIAL
 import { MaterialModulo } from './app.material';
 
@@ -16,13 +24,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { NavbarComponent } from './componentes/navbar/navbar.component';
+import { NotFoundComponent } from './componentes/not-found/not-found.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    NavbarComponent
+    NavbarComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +42,7 @@ import { NavbarComponent } from './componentes/navbar/navbar.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [LoginService, GuardService, GuardChildService, UsuariosService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

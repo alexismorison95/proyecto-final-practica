@@ -1,0 +1,57 @@
+<mat-toolbar class="submenu">
+    Opciones
+
+    <span class="example-fill-remaining-space"></span>
+
+    <button mat-stroked-button color="primary" [routerLink]="[ '/usuarios/nuevo' ]">Nuevo Usuario</button>
+
+    <span style="width: 10px;"></span>
+    <button mat-stroked-button color="primary" [disabled]="opcionesBool" (click)="modificarUsuario()">Modificar Usuario</button>
+
+    <span style="width: 10px;"></span>
+    <button mat-stroked-button color="warn" [disabled]="opcionesBool" (click)="eliminarUsuario()">Eliminar Usuario</button>
+
+</mat-toolbar>
+
+<div class="container">
+
+    <mat-form-field>
+        <input matInput (keyup)="aplicarFiltro($event.target.value)" placeholder="Filtrar">
+    </mat-form-field>
+
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="datos" matSort>
+
+            <!-- ID Column -->
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+            </ng-container>
+
+            <!-- Progress Column -->
+            <ng-container matColumnDef="nombrereal">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Real </th>
+                <td mat-cell *matCellDef="let row"> {{row.nombrereal}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="nombreusuario">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Usuario </th>
+                <td mat-cell *matCellDef="let row"> {{row.nombreusuario}} </td>
+            </ng-container>
+
+            <!-- Color Column -->
+            <ng-container matColumnDef="tipousuario">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Rol </th>
+                <td mat-cell *matCellDef="let row"> {{row.tipousuario}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columnasTabla"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnasTabla;" (click)="opciones(row)" [ngClass]="{'highlightTableColor': selectedRowIndex == row.id}">
+            </tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+
+</div>

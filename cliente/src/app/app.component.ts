@@ -8,6 +8,6 @@ import { LoginService } from "./servicios/login.service";
 })
 export class AppComponent {
 
-  constructor(private loginService: LoginService) {}
+  constructor(private loginService: LoginService) { }
   
 }

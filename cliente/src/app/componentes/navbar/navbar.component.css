@@ -5,3 +5,13 @@
 .menu-spacer {
     width: 20px;
 }
+
+.navbar1 {
+    position: sticky;
+    z-index: 1;
+    top: 0;
+}
+
+.active {
+    background: rgb(89, 99, 194);
+}

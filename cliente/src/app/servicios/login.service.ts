@@ -6,33 +6,43 @@ import { HttpClient } from '@angular/common/http';
 })
 export class LoginService {
 
-  logueado: boolean = false;
-  usuarioActivo: any;
+  private logueado: boolean = false;
+  private usuarioActivo: any;
   private readonly URL_API = 'http://localhost:3000/api/';
 
-  constructor( private _http: HttpClient ) {
+  constructor( private http: HttpClient ) {
 
     this.loginf5();
 
   }
 
+  isLogueado() { return this.logueado; }
+
+  setLogueado(valor: boolean) { this.logueado = valor; }
+
+  getUsuarioActivo() { return this.usuarioActivo; }
+
+  setUsuarioActivo(usuario) { this.usuarioActivo = usuario; }
+
+
   login(usuario: any){
 
-    return this._http.post(this.URL_API + 'login', usuario, { withCredentials: true });
+    return this.http.post(this.URL_API + 'login', usuario, { withCredentials: true });
 
   }
 
 
   logout() {
 
-    return this._http.get(this.URL_API + 'logout', { withCredentials: true });
+    return this.http.get(this.URL_API + 'logout', { withCredentials: true });
 
   }
 
 
+  // FUNCION QUE VERIFICA SI EL USUARIO ENTRA POR PRIMERA VEZ O HIZO F5 A LA PAGINA
   loginf5() {
 
-    this._http.get(this.URL_API + 'f5', { withCredentials: true })
+    this.http.get(this.URL_API + 'f5', { withCredentials: true })
     .subscribe(res => {
 
 

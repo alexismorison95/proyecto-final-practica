@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { LoginService } from "../../servicios/login.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-navbar',
@@ -8,9 +9,34 @@ import { LoginService } from "../../servicios/login.service";
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private loginService: LoginService) { }
+  private administrador: boolean = false;
+  private administrativo: boolean = false;
+  private examinador: boolean = false;
+
+  constructor( private loginService: LoginService, private router: Router ) { }
 
   ngOnInit() {
+
+    if (this.loginService.getUsuarioActivo().tipousuario == 'administrador_rol') {
+
+      this.administrador = true;
+
+    }
+    else {
+      
+      if (this.loginService.getUsuarioActivo().tipousuario == 'administrativo_rol') {
+        
+        this.administrativo = true;
+
+      }
+      else {
+
+        this.examinador = true;
+
+      }
+
+    }
+
   }
 
   cerrarSesion() {
@@ -18,7 +44,9 @@ export class NavbarComponent implements OnInit {
     this.loginService.logout().subscribe(res => {
 
       console.log(res);
-      this.loginService.logueado = false;
+      this.loginService.setLogueado(false);
+
+      this.router.navigate(['/']);
 
     }, err => {
 
@@ -27,5 +55,7 @@ export class NavbarComponent implements OnInit {
     });
     
   }
+
+
 
 }
