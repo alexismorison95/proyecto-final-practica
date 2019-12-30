@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+import { ToastrService } from 'ngx-toastr';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -10,7 +12,7 @@ export class LoginService {
   private usuarioActivo: any;
   private readonly URL_API = 'http://localhost:3000/api/';
 
-  constructor( private http: HttpClient ) {
+  constructor( private http: HttpClient, private toastr: ToastrService ) {
 
     this.loginf5();
 
@@ -43,14 +45,15 @@ export class LoginService {
   loginf5() {
 
     this.http.get(this.URL_API + 'f5', { withCredentials: true })
-    .subscribe(res => {
+    .subscribe((res: any) => {
+      
+      this.logueado = false;
+      this.toastr.error(res.res, 'Su sesion expiro');
 
-
-      console.log(res);
     }, err => {
 
       console.log(err.error);
-      this.logueado = false;
+      this.toastr.success('Por favor, inicia sesión.', 'Bienvenido ^-^');
 
     });
 

@@ -1,6 +1,6 @@
-<!-- Si esta logueado muestro el navbar -->
+
+<ngx-loading-bar [includeSpinner]="false" [height]="'4px'"></ngx-loading-bar>
 
 <app-navbar *ngIf="loginService.isLogueado()"></app-navbar>
-
 
 <router-outlet></router-outlet>

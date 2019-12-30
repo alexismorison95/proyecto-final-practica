@@ -3,13 +3,16 @@
 
     <span class="example-fill-remaining-space"></span>
 
-    <button mat-stroked-button color="primary" [routerLink]="[ '/usuarios/nuevo' ]">Nuevo Usuario</button>
+    <button mat-stroked-button color="primary" [routerLink]="[ '/usuarios/nuevo' ]"
+        *ngIf="loginService.getUsuarioActivo().tipousuario == 'administrador'">Nuevo Usuario</button>
 
     <span style="width: 10px;"></span>
-    <button mat-stroked-button color="primary" [disabled]="opcionesBool" (click)="modificarUsuario()">Modificar Usuario</button>
+    <button mat-stroked-button color="primary" [disabled]="opcionesBool" (click)="modificarUsuario()"
+        *ngIf="loginService.getUsuarioActivo().tipousuario == 'administrador'">Modificar Usuario</button>
 
     <span style="width: 10px;"></span>
-    <button mat-stroked-button color="warn" [disabled]="opcionesBool" (click)="eliminarUsuario()">Eliminar Usuario</button>
+    <button mat-stroked-button color="warn" [disabled]="opcionesBool" (click)="eliminarUsuario()"
+        *ngIf="loginService.getUsuarioActivo().tipousuario == 'administrador'">Eliminar Usuario</button>
 
 </mat-toolbar>
 

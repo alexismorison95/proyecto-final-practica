@@ -108,7 +108,7 @@ export class ListarUsuariosComponent implements OnInit {
     if (this.usuarioSeleccionado.id != this.loginService.getUsuarioActivo().id) {
 
       const dialogRef = this.dialog.open(DialogoEliminarComponent, {
-        width: '400px',
+        width: '410px',
         data: this.usuarioSeleccionado
       });
   

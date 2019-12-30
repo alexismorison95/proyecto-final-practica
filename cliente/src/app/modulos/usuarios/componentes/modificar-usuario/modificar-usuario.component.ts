@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { AbmsService } from "../../../../servicios/abms.service";
+import { LoginService } from "../../../../servicios/login.service";
 
 @Component({
   selector: 'app-modificar-usuario',
@@ -18,7 +19,7 @@ export class ModificarUsuarioComponent implements OnInit {
 
 
   constructor( private router: Router, private abmService: AbmsService, 
-                private formBuilder: FormBuilder ) {
+                private formBuilder: FormBuilder, private loginService: LoginService ) {
     
     this.nR = this.router.getCurrentNavigation().extras.state["nombrereal"];
     this.nU = this.router.getCurrentNavigation().extras.state["nombreusuario"];
@@ -51,7 +52,13 @@ export class ModificarUsuarioComponent implements OnInit {
 
     this.abmService.modificacion(usuario, 'usuarios/modificar/' + usuario.id).subscribe(res => {
 
-      console.log(res);
+      // Si el usuario modificado es el mismo, actualizo en el login setvice el usuario activo
+      if (res[0].id == this.loginService.getUsuarioActivo().id) {
+
+        this.loginService.setUsuarioActivo(res[0]);
+
+      }
+
       this.router.navigate(['/usuarios']);
       
     }, err => {

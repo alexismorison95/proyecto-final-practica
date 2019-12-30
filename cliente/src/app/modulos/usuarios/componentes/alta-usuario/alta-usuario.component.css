@@ -1,0 +1,18 @@
+.container1{
+    margin-top: 0%;
+    height: 100%;
+    text-align: center;
+    background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(135,135,252,0.25252099130667893) 0%, rgba(255,255,255,1) 100%);
+}
+
+mat-form-field{
+    width: 400px;
+}
+
+button {
+    margin-left: 10px;
+}
+
+.botones {
+    margin-right: -210px;
+}

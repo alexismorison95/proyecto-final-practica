@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+// LOAD BAR
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+
 // GUARD
 import { GuardService } from "./servicios/guard.service";
 import { GuardChildService } from "./servicios/guard-child.service";
@@ -10,7 +13,6 @@ import { GuardChildService } from "./servicios/guard-child.service";
 // SERVICIOS
 import { LoginService } from "./servicios/login.service";
 import { AbmsService } from "./servicios/abms.service";
-import { UsuariosService } from "./servicios/usuarios/usuarios.service";
 
 // MATERIAL
 import { MaterialModulo } from './app.material';
@@ -20,6 +22,9 @@ import { HttpClientModule } from '@angular/common/http';
 
 // FORMULARIOS
 import { ReactiveFormsModule } from '@angular/forms';
+
+// TOAST
+import { ToastrModule } from 'ngx-toastr';
 
 // COMPONENTES
 import { AppComponent } from './app.component';
@@ -41,9 +46,17 @@ import { NotFoundComponent } from './componentes/not-found/not-found.component';
     BrowserAnimationsModule,
     MaterialModulo,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+
+    ToastrModule.forRoot({
+      timeOut: 5000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true
+    }),
+
+    LoadingBarHttpClientModule
   ],
-  providers: [LoginService, GuardService, GuardChildService, UsuariosService, AbmsService],
+  providers: [LoginService, GuardService, GuardChildService, AbmsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

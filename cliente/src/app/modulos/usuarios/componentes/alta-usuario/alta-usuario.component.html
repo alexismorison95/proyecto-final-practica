@@ -1,1 +1,45 @@
-<p>alta-usuario works!</p>
+<div class="container1">
+
+    <br> <br> <br>
+
+    <form [formGroup]="formGroup">
+
+        <mat-form-field>
+            <input matInput placeholder="Nombre Real" formControlName="nombreReal">
+        </mat-form-field>
+
+        <br>
+
+        <mat-form-field>
+            <input matInput placeholder="Nombre Usuario" formControlName="nombreUsuario">
+        </mat-form-field>
+
+        <br>
+
+        <mat-form-field>
+            <input matInput placeholder="Contraseñia" formControlName="contrasenia">
+        </mat-form-field>
+
+        <br>
+
+        <mat-form-field>
+            <mat-label>Tipo Usuario</mat-label>
+            <mat-select formControlName="tipoUsuario">
+                <mat-option *ngFor="let tipo of tiposUsuarioSelector" [value]="tipo">
+                    {{ tipo }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <br> <br>
+
+        <div class="botones">
+            <button mat-raised-button color="warn" [routerLink]="[ '/usuarios' ]"> Cancelar </button>
+
+            <button [disabled]="formGroup.invalid" (click)="guardar()" mat-raised-button type="submit" color="primary"> Guardar </button>
+        </div>
+
+
+    </form>
+
+</div>
