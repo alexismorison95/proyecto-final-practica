@@ -102,7 +102,7 @@ exports.modificar_usaurio = async (req, res) => {
 
         db = conexion(req.session.rol);
 
-        const respuesta = await db.query('select * from modificar_usuario($1, $2, $3, $4, $5)', [req.body.id, req.body.nombrereal, req.body.nombreusuario, req.body.contrasenia, req.body.tipousuario]);
+        const respuesta = await db.query('select * from modificacion_usuario($1, $2, $3, $4, $5)', [req.body.id, req.body.nombrereal, req.body.nombreusuario, req.body.contrasenia, req.body.tipousuario]);
 
         res.status(200).json(respuesta.rows);
 

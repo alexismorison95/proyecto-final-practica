@@ -17,14 +17,14 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
 
-    if (this.loginService.getUsuarioActivo().tipousuario == 'administrador_rol') {
+    if (this.loginService.getUsuarioActivo().tipousuario == 'administrador') {
 
       this.administrador = true;
 
     }
     else {
       
-      if (this.loginService.getUsuarioActivo().tipousuario == 'administrativo_rol') {
+      if (this.loginService.getUsuarioActivo().tipousuario == 'administrativo') {
         
         this.administrativo = true;
 

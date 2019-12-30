@@ -1,10 +1,12 @@
+-- CARGAR POR PARTES!!!!
+
 -- USUARIO
 
-INSERT INTO usuario(nombreReal, nombreUsuario, contrasenia, tipousuario) VALUES ('martinez juan', 'juan', '1234', 'administrador_rol');
-INSERT INTO usuario(nombreReal, nombreUsuario, contrasenia, tipousuario) VALUES ('monzon pedro', 'pedro', '1234', 'administrativo_rol');
-INSERT INTO usuario(nombreReal, nombreUsuario, contrasenia, tipousuario) VALUES ('cosso carlos', 'carlos', '1234', 'examinador_rol');
-INSERT INTO usuario(nombreReal, nombreUsuario, contrasenia, tipousuario) VALUES ('morison alexis', 'usuario123', '1234', 'examinador_rol');
-INSERT INTO usuario(nombreReal, nombreUsuario, contrasenia, tipousuario) VALUES ('kloss laura', 'laura', '1234', 'examinador_rol');
+INSERT INTO usuario(nombreReal, nombreUsuario, contrasenia, tipousuario) VALUES ('martinez juan', 'juan', '1234', 'administrador');
+INSERT INTO usuario(nombreReal, nombreUsuario, contrasenia, tipousuario) VALUES ('monzon pedro', 'pedro', '1234', 'administrativo');
+INSERT INTO usuario(nombreReal, nombreUsuario, contrasenia, tipousuario) VALUES ('cosso carlos', 'carlos', '1234', 'examinador');
+INSERT INTO usuario(nombreReal, nombreUsuario, contrasenia, tipousuario) VALUES ('morison alexis', 'usuario123', '1234', 'examinador');
+INSERT INTO usuario(nombreReal, nombreUsuario, contrasenia, tipousuario) VALUES ('kloss laura', 'laura', '1234', 'examinador');
 
 
 -- CONDUCTOR
@@ -35,9 +37,9 @@ INSERT INTO dominio(id, descripcion) VALUES ('b 456 sdd', 'motocicleta rouser ba
 
 -- EXAMINADOR
 
-INSERT INTO examinador(nombre, apellido, idusuario) VALUES ('carlos', 'perez', 1);
-INSERT INTO examinador(nombre, apellido, idusuario) VALUES ('maria', 'andrade', 2);
-INSERT INTO examinador(nombre, apellido, idusuario) VALUES ('laura', 'sanchez', 3);
+-- INSERT INTO examinador(nombre, apellido, idusuario) VALUES ('cosso carlos', 3);
+-- INSERT INTO examinador(nombre, apellido, idusuario) VALUES ('morison alexis', 4);
+-- INSERT INTO examinador(nombre, apellido, idusuario) VALUES ('kloss laura', 5);
 
 
 -- EQUIPO

@@ -6,7 +6,7 @@
 CREATE OR REPLACE FUNCTION alta_usuario(nombreReal_nuevo varchar, nombreUsuario_nuevo varchar, contrasenia_nuevo varchar, tipousuario_nuevo varchar) RETURNS SETOF usuario AS
 $$
 BEGIN
-	RETURN QUERY INSERT INTO usuario(nombreReal, nombreUsuario, contrasenia, tipousuario) 
+	RETURN QUERY INSERT INTO usuario(nombrereal, nombreusuario, contrasenia, tipousuario) 
 								VALUES (nombreReal_nuevo, nombreUsuario_nuevo, contrasenia_nuevo, tipousuario_nuevo) RETURNING *;
 END;
 $$
@@ -27,7 +27,7 @@ LANGUAGE 'plpgsql';
 CREATE OR REPLACE FUNCTION modificacion_usuario(id_usuario int, nombreReal_nuevo varchar, nombreUsuario_nuevo varchar, contrasenia_nuevo varchar, tipousuario_nuevo varchar) RETURNS SETOF usuario AS
 $$
 BEGIN
-	RETURN QUERY UPDATE usuario SET nombreReal = nombreReal_nuevo, nombreUsuario = nombreUsuario_nuevo, contrasenia = contrasenia_nuevo, tipousuario = tipousuario_nuevo WHERE id = id_usuario RETURNING *;
+	RETURN QUERY UPDATE usuario SET nombrereal = nombreReal_nuevo, nombreusuario = nombreUsuario_nuevo, contrasenia = contrasenia_nuevo, tipousuario = tipousuario_nuevo WHERE id = id_usuario RETURNING *;
 END;
 $$
 LANGUAGE 'plpgsql';
@@ -67,11 +67,11 @@ LANGUAGE 'plpgsql';
 
 -- FUNCIONES EXAMINADOR
 
-CREATE OR REPLACE FUNCTION alta_examinador(nombre_nuevo varchar, apellido_nuevo varchar, idusuario_nuevo int) RETURNS SETOF examinador AS
+CREATE OR REPLACE FUNCTION alta_examinador(nombrereal_nuevo varchar, idusuario_nuevo int) RETURNS SETOF examinador AS
 $$
 BEGIN
-	RETURN QUERY INSERT INTO examinador(nombre, apellido, idusuario) 
-								VALUES (nombre_nuevo, apellido_nuevo, idusuario_nuevo) RETURNING *;
+	RETURN QUERY INSERT INTO examinador(nombrereal, idusuario) 
+								VALUES (nombrereal_nuevo, idusuario_nuevo) RETURNING *;
 END;
 $$
 LANGUAGE 'plpgsql';

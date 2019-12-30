@@ -5,8 +5,8 @@
 -- serial para autoincremental
 create table usuario (
 	id serial primary key,
-	nombreReal varchar not null,
-	nombreUsuario varchar not null,
+	nombrereal varchar not null,
+	nombreusuario varchar not null,
 	contrasenia varchar not null,
 	tipousuario varchar
 );
@@ -24,8 +24,7 @@ create table dominio (
 
 create table examinador (
 	id serial primary key,
-	nombre varchar not null,
-	apellido varchar not null,
+	nombrereal varchar not null,
 	activo boolean default true,
 	idusuario int references usuario(id)
 );

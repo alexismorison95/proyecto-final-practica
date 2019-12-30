@@ -9,6 +9,7 @@ import { GuardChildService } from "./servicios/guard-child.service";
 
 // SERVICIOS
 import { LoginService } from "./servicios/login.service";
+import { AbmsService } from "./servicios/abms.service";
 import { UsuariosService } from "./servicios/usuarios/usuarios.service";
 
 // MATERIAL
@@ -42,7 +43,7 @@ import { NotFoundComponent } from './componentes/not-found/not-found.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [LoginService, GuardService, GuardChildService, UsuariosService],
+  providers: [LoginService, GuardService, GuardChildService, UsuariosService, AbmsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

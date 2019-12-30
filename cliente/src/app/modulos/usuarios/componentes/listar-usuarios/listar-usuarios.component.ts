@@ -1,14 +1,17 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from "@angular/router";
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { DialogoEliminarComponent } from "../dialogo-eliminar/dialogo-eliminar.component";
 
 import { UsuariosInterface } from "../../../../interfaces/usuarios";
 
-import { UsuariosService } from "../../../../servicios/usuarios/usuarios.service";
+// import { UsuariosService } from "../../../../servicios/usuarios/usuarios.service";
+import { LoginService } from "../../../../servicios/login.service";
+import { AbmsService } from "../../../../servicios/abms.service";
+
 
 @Component({
   selector: 'app-listar-usuarios',
@@ -29,7 +32,8 @@ export class ListarUsuariosComponent implements OnInit {
   ultimo: number;
 
 
-  constructor( private usuariosService: UsuariosService, private router: Router, public dialog: MatDialog ) {
+  constructor( private abmService: AbmsService, private router: Router, 
+              public dialog: MatDialog, private loginService: LoginService ) {
 
     this.cargarTabla();
 
@@ -48,14 +52,16 @@ export class ListarUsuariosComponent implements OnInit {
 
   }
 
+
   cargarTabla() {
 
-    this.usuariosService.listarUsuarios().subscribe(res => {
+    this.abmService.listarTodos<UsuariosInterface>('usuarios/listar').subscribe(res => {
 
       this.datos = new MatTableDataSource(res);
 
       this.datos.paginator = this.paginador;
       this.datos.sort = this.ordenar;
+      
 
     }, err => {
 
@@ -91,32 +97,41 @@ export class ListarUsuariosComponent implements OnInit {
 
   modificarUsuario() {
 
-    console.log(this.usuarioSeleccionado);
-    this.router.navigate(['usuarios/modificar/', this.usuarioSeleccionado.id]);
+    this.router.navigateByUrl('usuarios/modificar/' + this.usuarioSeleccionado.id, 
+                          {state: this.usuarioSeleccionado});
 
   }
 
 
   eliminarUsuario(): void {
 
-    const dialogRef = this.dialog.open(DialogoEliminarComponent, {
-      width: '400px',
-      data: this.usuarioSeleccionado
-    });
+    if (this.usuarioSeleccionado.id != this.loginService.getUsuarioActivo().id) {
 
-    dialogRef.afterClosed().subscribe(result => {
+      const dialogRef = this.dialog.open(DialogoEliminarComponent, {
+        width: '400px',
+        data: this.usuarioSeleccionado
+      });
+  
+      dialogRef.afterClosed().subscribe(id => {
+  
+        if (id) {
+  
+          this.abmService.baja('usuarios/eliminar/' + id).subscribe(res => {
+  
+            this.cargarTabla();
+            
+          });
+  
+        }
+        
+      });
 
-      if (result) {
+    }
+    else {
 
-        this.usuariosService.eliminarUsuario(result).subscribe(res => {
-
-          this.cargarTabla();
-          
-        });
-
-      }
+      console.log("No puede eliminar su propio usuario");
       
-    });
+    }
 
   }
 

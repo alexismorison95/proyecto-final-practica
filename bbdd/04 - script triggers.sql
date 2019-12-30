@@ -1,5 +1,16 @@
 ------------------------------------------------------------------------------------------ TRIGGERS
 
+-- COSAS PARA HACER
+-- Al dar de baja un usuario, si es examinador hacer un trigger que de de baja ese examinador,
+-- de la tabla examinadores
+
+-- Tambien si se modifica el usuario y se pone como examinador hay que darlo de alta en la tabla examinadores
+
+
+
+
+
+
 -- al dar de alta un nuevo periodoutilizable, actualizar en nroactual de equipo
 CREATE OR REPLACE FUNCTION actualizar_nroactual_equipo_periodoutilizable() RETURNS trigger AS
 $$
@@ -53,14 +64,79 @@ BEGIN
 	NEW.nombreReal = LOWER(NEW.nombreReal);
 	
 	NEW.tipousuario = LOWER(NEW.tipousuario);
- 
+
 	RETURN NEW;
+
 END;
 $$
 LANGUAGE 'plpgsql';
 
 CREATE TRIGGER insertar_usuario_trigger BEFORE INSERT ON usuario
 FOR EACH ROW EXECUTE PROCEDURE insertar_usuario();
+
+----------
+
+CREATE OR REPLACE FUNCTION insertar_usuario_after() RETURNS trigger AS
+$$
+BEGIN
+
+	-- AGREGUE ESTO PARA QUE CUANDO CREAS UN USUARIO, SI ES EXAMINADOR VA A LA TABLA EXAMINADORES
+	IF NEW.tipousuario = 'examinador' THEN
+		
+		INSERT INTO examinador(nombrereal, idusuario) VALUES (NEW.nombreReal, NEW.id);
+		
+	END IF;
+
+	RETURN NEW;
+
+END;
+$$
+LANGUAGE 'plpgsql';
+
+CREATE TRIGGER insertar_usuario_after_trigger AFTER INSERT ON usuario
+FOR EACH ROW EXECUTE PROCEDURE insertar_usuario_after();
+
+----------
+
+CREATE OR REPLACE FUNCTION editar_usuario() RETURNS trigger AS
+$$
+BEGIN
+
+	IF NEW.tipousuario = 'examinador' THEN
+		
+		INSERT INTO examinador(nombrereal, idusuario) VALUES (NEW.nombreReal, NEW.id);
+		
+	END IF;
+
+	RETURN NEW;
+
+END;
+$$
+LANGUAGE 'plpgsql';
+
+CREATE TRIGGER editar_usuario_trigger BEFORE UPDATE ON usuario
+FOR EACH ROW EXECUTE PROCEDURE editar_usuario();
+
+-------
+
+CREATE OR REPLACE FUNCTION eliminar_usuario() RETURNS trigger AS
+$$
+BEGIN
+
+	IF OLD.tipousuario = 'examinador' THEN
+		
+		UPDATE examinador SET activo=false, idusuario=null WHERE OLD.id = examinador.idusuario;
+		
+	END IF;
+
+	RETURN OLD;
+
+END;
+$$
+LANGUAGE 'plpgsql';
+
+CREATE TRIGGER eliminar_usuario_trigger BEFORE DELETE ON usuario
+FOR EACH ROW EXECUTE PROCEDURE eliminar_usuario();
 
 
 ----------------------------------
@@ -104,21 +180,21 @@ FOR EACH ROW EXECUTE PROCEDURE insertar_dominio();
 ----------------------------------
 
 -- EXAMINADOR
-CREATE OR REPLACE FUNCTION insertar_examinador() RETURNS trigger AS
-$$
-BEGIN
+-- CREATE OR REPLACE FUNCTION insertar_examinador() RETURNS trigger AS
+-- $$
+-- BEGIN
 
-	NEW.nombre = LOWER(NEW.nombre);
+-- 	NEW.nombre = LOWER(NEW.nombre);
 	
-	NEW.apellido = LOWER(NEW.apellido);
+-- 	NEW.apellido = LOWER(NEW.apellido);
  
-	RETURN NEW;
-END;
-$$
-LANGUAGE 'plpgsql';
+-- 	RETURN NEW;
+-- END;
+-- $$
+-- LANGUAGE 'plpgsql';
 
-CREATE TRIGGER insertar_examinador_trigger BEFORE INSERT ON examinador
-FOR EACH ROW EXECUTE PROCEDURE insertar_examinador();
+-- CREATE TRIGGER insertar_examinador_trigger BEFORE INSERT ON examinador
+-- FOR EACH ROW EXECUTE PROCEDURE insertar_examinador();
 
 
 ----------------------------------
