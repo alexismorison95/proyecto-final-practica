@@ -17,7 +17,11 @@
         <br>
 
         <mat-form-field>
-            <input matInput placeholder="Contraseñia" formControlName="contrasenia">
+            <input matInput [type]="hide ? 'password' : 'text'" placeholder="Contraseñia" formControlName="contrasenia">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+                <mat-icon> {{ hide ? 'visibility_off' : 'visibility' }} </mat-icon>
+            </button>
         </mat-form-field>
 
         <br>
@@ -33,11 +37,12 @@
 
         <br> <br>
 
-        <div class="botones">
-            <button mat-raised-button color="warn" [routerLink]="[ '/usuarios' ]"> Cancelar </button>
 
-            <button [disabled]="formGroup.invalid" (click)="guardar()" mat-raised-button type="submit" color="primary"> Guardar </button>
-        </div>
+        <button mat-raised-button color="warn" class="btnCancelar" [routerLink]="[ '/usuarios' ]"> Cancelar </button>
+
+        <button [disabled]="formGroup.invalid" class="btnAceptar" (click)="guardar()" mat-raised-button type="submit"
+            color="primary"> Guardar </button>
+
 
 
     </form>

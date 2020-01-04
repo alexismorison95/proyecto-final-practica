@@ -52,7 +52,7 @@ app.use(session({
     secret: 'cadena secreta',
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 30 * 60 * 1000 } // 30 minutos
+    cookie: { maxAge: 300 * 60 * 1000 } // 30 minutos
 }));
 
 
@@ -62,10 +62,10 @@ app.use('/api/', auth, require('./rutas/logout.rutas'));
 app.use('/api/', auth, require('./rutas/conductor.rutas'));
 app.use('/api/', auth, require('./rutas/usuario.rutas'));
 // app.use('/api/', auth, require('./rutas/dominio.rutas'));
-// app.use('/api/', auth, require('./rutas/examinador.rutas'));
+// //app.use('/api/', auth, require('./rutas/examinador.rutas'));
 // app.use('/api/', auth, require('./rutas/equipo.rutas'));
 // app.use('/api/', auth, require('./rutas/periodoutilizable.rutas'));
-// app.use('/api/', auth, require('./rutas/prestamo.ruta'));
+// app.use('/api/', auth, require('./rutas/prestamo.rutas'));
 // app.use('/api/', auth, require('./rutas/prueba.rutas'));
 
 

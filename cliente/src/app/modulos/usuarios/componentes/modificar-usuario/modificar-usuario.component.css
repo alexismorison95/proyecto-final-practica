@@ -9,10 +9,10 @@ mat-form-field{
     width: 400px;
 }
 
-button {
-    margin-left: 10px;
+.btnCancelar{
+    margin-right: 10px;
 }
 
-.botones {
-    margin-right: -210px;
+.btnAceptar{
+    margin-right: -220px;
 }

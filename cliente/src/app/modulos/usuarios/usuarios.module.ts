@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+// MATERIAL
 import { MaterialModulo } from "../../app.material";
 
 // FORMULARIOS

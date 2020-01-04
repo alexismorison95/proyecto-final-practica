@@ -11,7 +11,7 @@ exports.alta_usuario = async(req, res) => {
         // Transaccion
         await db.query('BEGIN');
         const queryText = 'select * from alta_usuario($1, $2, $3, $4);';
-        const respuesta = await db.query(queryText, [req.body.nombreReal, req.body.nombreUsuario, req.body.contrasenia, req.body.tipoUsuario]);
+        const respuesta = await db.query(queryText, [req.body.nombrereal, req.body.nombreusuario, req.body.contrasenia, req.body.tipousuario]);
         await db.query('COMMIT');
 
         res.status(200).json(respuesta.rows);

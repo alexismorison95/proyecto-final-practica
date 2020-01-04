@@ -1,0 +1,89 @@
+<div class="container">
+
+    <br> 
+
+    <mat-horizontal-stepper [linear]="isLinear" #stepper>
+
+        <!-- PRIMER PASO DATOS DEL CONDUCTOR -->
+        <mat-step [stepControl]="firstFormGroup">
+
+            <form [formGroup]="firstFormGroup">
+                <ng-template matStepLabel>Datos del conductor</ng-template>
+
+                <!-- FORMULARIO A LLENAR -->
+                <div class="contenedor"> FORMULARIO </div>
+
+                <div>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+
+            </form>
+
+        </mat-step>
+
+        <!-- SEGUNDO PASO DATOS DEL VEHICULO -->
+        <mat-step [stepControl]="secondFormGroup">
+
+            <form [formGroup]="secondFormGroup">
+                <ng-template matStepLabel>Datos del vehiculo</ng-template>
+                
+                <!-- FORMULARIO A LLENAR -->
+
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+
+            </form>
+
+        </mat-step>
+
+        <!-- TERCER PASO DATOS DEL EXAMEN -->
+        <mat-step [stepControl]="secondFormGroup">
+
+            <form [formGroup]="secondFormGroup">
+                <ng-template matStepLabel>Datos del examen</ng-template>
+                
+                <!-- FORMULARIO A LLENAR -->
+
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+
+            </form>
+
+        </mat-step>
+
+        <!-- CUARTO PASO DATOS DE LA DOCUMENTACION -->
+        <mat-step [stepControl]="secondFormGroup">
+
+            <form [formGroup]="secondFormGroup">
+                <ng-template matStepLabel>Documentacion</ng-template>
+                
+                <!-- FORMULARIO A LLENAR -->
+
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+
+            </form>
+
+        </mat-step>
+
+        <mat-step>
+            <ng-template matStepLabel>Resumen y Guardar</ng-template>
+
+            RESUMEN DE LA PRUEBA
+
+            <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button (click)="stepper.reset()">Reset</button>
+            </div>
+
+        </mat-step>
+
+    </mat-horizontal-stepper>
+
+</div>

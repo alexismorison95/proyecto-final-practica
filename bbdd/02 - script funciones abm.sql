@@ -33,7 +33,7 @@ $$
 LANGUAGE 'plpgsql';
 
 
--- FUNCIONES CONDUCTOR
+-- FUNCIONES CONDUCTOR. FALTA MODIFICACION
 
 CREATE OR REPLACE FUNCTION alta_conductor(dni_nuevo varchar, nombre_nuevo varchar, apellido_nuevo varchar) RETURNS SETOF conductor AS
 $$
@@ -65,7 +65,8 @@ $$
 LANGUAGE 'plpgsql';
 
 
--- FUNCIONES EXAMINADOR
+-- FUNCIONES EXAMINADOR. ALTA EXAMINADOR YA NO SE HARIA, SE HACE POR MEDIO DE ALTA USUARIO
+-- FALTA MODIFICACION. DEBERIA PONERSE EN UN TRIGGER 
 
 CREATE OR REPLACE FUNCTION alta_examinador(nombrereal_nuevo varchar, idusuario_nuevo int) RETURNS SETOF examinador AS
 $$
@@ -87,7 +88,7 @@ $$
 LANGUAGE 'plpgsql';
 
 
--- FUNCIONES EQUIPO
+-- FUNCIONES EQUIPO. FALTA MODIFICACION
 
 CREATE OR REPLACE FUNCTION alta_equipo(nombre_nuevo varchar, activo_nuevo boolean) RETURNS SETOF equipo AS
 $$
@@ -108,7 +109,7 @@ $$
 LANGUAGE 'plpgsql';
 
 
--- FUNCIONES PERIODOUTILIZABLE
+-- FUNCIONES PERIODOUTILIZABLE. FALTA MODIFICACION
 
 CREATE OR REPLACE FUNCTION alta_periodoutilizable(fechainicio_nuevo date, fechavencimiento_nuevo date, 
 												  nroingreso_nuevo int, idequipo_nuevo int) RETURNS SETOF periodoutilizable AS

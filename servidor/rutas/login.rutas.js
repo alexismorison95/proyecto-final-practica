@@ -27,7 +27,7 @@ rutasLogin.post('/login', async(req, res) => {
 
         } else {
 
-            res.status(500).json({ res: "Usuario o contraseñia no validos" });
+            res.status(500).json({ res: "Usuario o contraseñia no validos." });
 
         }
 
@@ -35,7 +35,7 @@ rutasLogin.post('/login', async(req, res) => {
 
         console.log(error.stack);
 
-        res.status(500).json('Error interno del servidor');
+        res.status(500).json('Error interno del servidor.');
 
     }
 
@@ -47,10 +47,10 @@ rutasLogin.post('/login', async(req, res) => {
 rutasLogin.get('/f5', (req, res) => {
 
     if(req.session.id_usuario) {
-        res.status(500).json({res: 'Debe volver a inciar sesion'});
+        res.status(200).json({res: 'Debe volver a iniciar sesion.'});
     }
     else {
-        res.status(200).json({res: 'Sesion no iniciada'});
+        res.status(500).json({res: 'Sesion no iniciada.'});
     }
 
 });

@@ -27,11 +27,9 @@
 
         <br> <br>
 
-        <div class="botones">
-            <button mat-raised-button color="warn" [routerLink]="[ '/usuarios' ]"> Cancelar </button>
+        <button mat-raised-button color="warn" class="btnCancelar" [routerLink]="[ '/usuarios' ]"> Cancelar </button>
 
-            <button [disabled]="formGroup.invalid" (click)="guardar()" mat-raised-button type="submit" color="primary"> Guardar </button>
-        </div>
+        <button [disabled]="formGroup.invalid" class="btnAceptar" (click)="guardar()" mat-raised-button type="submit" color="primary"> Guardar </button>
 
 
     </form>

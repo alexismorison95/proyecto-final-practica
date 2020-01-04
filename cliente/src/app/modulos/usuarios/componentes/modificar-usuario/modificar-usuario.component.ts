@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+import { ToastrService } from 'ngx-toastr';
+
 import { AbmsService } from "../../../../servicios/abms.service";
 import { LoginService } from "../../../../servicios/login.service";
 
@@ -19,7 +21,7 @@ export class ModificarUsuarioComponent implements OnInit {
 
 
   constructor( private router: Router, private abmService: AbmsService, 
-                private formBuilder: FormBuilder, private loginService: LoginService ) {
+                private formBuilder: FormBuilder, private loginService: LoginService, private toastr: ToastrService ) {
     
     this.nR = this.router.getCurrentNavigation().extras.state["nombrereal"];
     this.nU = this.router.getCurrentNavigation().extras.state["nombreusuario"];
@@ -50,7 +52,7 @@ export class ModificarUsuarioComponent implements OnInit {
       tipousuario: temp.tipoUsuario
     }
 
-    this.abmService.modificacion(usuario, 'usuarios/modificar/' + usuario.id).subscribe(res => {
+    this.abmService.modificacion(usuario, 'usuarios/modificar/' + usuario.id).subscribe((res: any) => {
 
       // Si el usuario modificado es el mismo, actualizo en el login setvice el usuario activo
       if (res[0].id == this.loginService.getUsuarioActivo().id) {
@@ -58,12 +60,16 @@ export class ModificarUsuarioComponent implements OnInit {
         this.loginService.setUsuarioActivo(res[0]);
 
       }
-
+      console.log(res);
+      
+      this.toastr.success(res[0].nombreusuario, 'Modificado con exito');
       this.router.navigate(['/usuarios']);
       
     }, err => {
 
       console.log(err);
+      this.toastr.error(err.message, 'Error.')
+
       
     });
     

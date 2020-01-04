@@ -4,11 +4,13 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from "@angular/router";
 import { MatDialog } from '@angular/material/dialog';
+
 import { DialogoEliminarComponent } from "../dialogo-eliminar/dialogo-eliminar.component";
 
 import { UsuariosInterface } from "../../../../interfaces/usuarios";
 
-// import { UsuariosService } from "../../../../servicios/usuarios/usuarios.service";
+import { ToastrService } from 'ngx-toastr';
+
 import { LoginService } from "../../../../servicios/login.service";
 import { AbmsService } from "../../../../servicios/abms.service";
 
@@ -33,7 +35,7 @@ export class ListarUsuariosComponent implements OnInit {
 
 
   constructor( private abmService: AbmsService, private router: Router, 
-              public dialog: MatDialog, private loginService: LoginService ) {
+              public dialog: MatDialog, private loginService: LoginService, private toastr: ToastrService ) {
 
     this.cargarTabla();
 
@@ -66,6 +68,7 @@ export class ListarUsuariosComponent implements OnInit {
     }, err => {
 
       console.log(err);
+      this.toastr.error(err.error, 'Error.');
       
     });
 
@@ -116,9 +119,17 @@ export class ListarUsuariosComponent implements OnInit {
   
         if (id) {
   
-          this.abmService.baja('usuarios/eliminar/' + id).subscribe(res => {
-  
+          this.abmService.baja('usuarios/eliminar/' + id).subscribe((res: any) => {
+            
+            console.log(res);
+            
+            this.toastr.success(res[0].nombreusuario, 'Eliminado con exito');
             this.cargarTabla();
+            
+          }, err => {
+
+            console.log(err);
+            this.toastr.error(err.message, 'Error.')
             
           });
   
@@ -129,6 +140,7 @@ export class ListarUsuariosComponent implements OnInit {
     }
     else {
 
+      this.toastr.error('No puede eliminar su propio usuario.', 'Error.')
       console.log("No puede eliminar su propio usuario");
       
     }

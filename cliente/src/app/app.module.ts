@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // LOAD BAR
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 
 // GUARD
 import { GuardService } from "./servicios/guard.service";
@@ -54,7 +55,8 @@ import { NotFoundComponent } from './componentes/not-found/not-found.component';
       preventDuplicates: true
     }),
 
-    LoadingBarHttpClientModule
+    LoadingBarHttpClientModule,
+    LoadingBarRouterModule
   ],
   providers: [LoginService, GuardService, GuardChildService, AbmsService],
   bootstrap: [AppComponent]
