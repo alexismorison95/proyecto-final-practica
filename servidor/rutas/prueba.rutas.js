@@ -6,16 +6,16 @@ const rutasPrueba = express.Router();
 
 // DEFINICION DE RUTAS
 // ALTA prueba
-rutasPrueba.post('/prueba/alta', pruebaControlador);
+rutasPrueba.post('/prueba/alta', pruebaControlador.alta_prueba);
 
 // LISTAR pruebas
-rutasPrueba.get('/prueba/listar', pruebaControlador);
+rutasPrueba.get('/prueba/listar', pruebaControlador.listar_pruebas);
 
 // LISTAR prueba
-rutasPrueba.get('/prueba/listar/:id', pruebaControlador);
+rutasPrueba.get('/prueba/listar/:id', pruebaControlador.listar_prueba);
 
 // MODIFICAR prueba
-rutasPrueba.put('/prueba/modificar', pruebaControlador)
+rutasPrueba.put('/prueba/modificar', pruebaControlador.modificar_prueba)
 
 
 module.exports = rutasPrueba;

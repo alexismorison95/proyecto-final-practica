@@ -1,5 +1,7 @@
-.contenedor{
-    background-color: blue;
-    height: 200px;
-    color: white;
+.formulario{
+    text-align: center;
+}
+
+mat-form-field{
+    width: 400px;
 }

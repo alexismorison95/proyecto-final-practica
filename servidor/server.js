@@ -61,12 +61,12 @@ app.use('/api/', require('./rutas/login.rutas'));
 app.use('/api/', auth, require('./rutas/logout.rutas'));
 app.use('/api/', auth, require('./rutas/conductor.rutas'));
 app.use('/api/', auth, require('./rutas/usuario.rutas'));
-// app.use('/api/', auth, require('./rutas/dominio.rutas'));
-// //app.use('/api/', auth, require('./rutas/examinador.rutas'));
-// app.use('/api/', auth, require('./rutas/equipo.rutas'));
-// app.use('/api/', auth, require('./rutas/periodoutilizable.rutas'));
-// app.use('/api/', auth, require('./rutas/prestamo.rutas'));
-// app.use('/api/', auth, require('./rutas/prueba.rutas'));
+app.use('/api/', auth, require('./rutas/dominio.rutas'));
+// app.use('/api/', auth, require('./rutas/examinador.rutas'));
+app.use('/api/', auth, require('./rutas/equipo.rutas'));
+app.use('/api/', auth, require('./rutas/periodoutilizable.rutas'));
+app.use('/api/', auth, require('./rutas/prestamo.rutas'));
+app.use('/api/', auth, require('./rutas/prueba.rutas'));
 
 
 // ENCENDER SERVIDOR

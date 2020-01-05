@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { LoginService } from "../../servicios/login.service";
 import { Router } from "@angular/router";
+
+import { LoginService } from "../../servicios/login.service";
+import { AbmsService } from "../../servicios/abms.service";
+
 
 @Component({
   selector: 'app-login',
@@ -13,7 +16,8 @@ export class LoginComponent implements OnInit {
   public formGroup: FormGroup;
   hide = true;
 
-  constructor( private formBuilder: FormBuilder, private loginService: LoginService, private router: Router ) { }
+  constructor( private formBuilder: FormBuilder, private loginService: LoginService, private router: Router,
+              private abmsService: AbmsService ) { }
 
   ngOnInit() {
 
@@ -40,6 +44,22 @@ export class LoginComponent implements OnInit {
 
       this.loginService.setLogueado(true);
       this.loginService.setUsuarioActivo(res);
+
+      if(this.loginService.getUsuarioActivo().tipousuario == 'examinador') {
+
+        this.abmsService.listarUno('prestamo/listar/' + this.loginService.getUsuarioActivo().id)
+          .subscribe(res => {
+
+            console.log(res);
+            this.loginService.setDatosExaminador({idPrestamo: res[0].id, idEquipo: res[0].idequipo});
+            
+          }, err => {
+
+            console.log(err);
+            
+          });
+        
+      }
 
       this.router.navigate(['/inicio']);
 

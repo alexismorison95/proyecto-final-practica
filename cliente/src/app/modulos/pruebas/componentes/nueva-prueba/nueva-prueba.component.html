@@ -1,20 +1,44 @@
 <div class="container">
 
-    <br> 
+    <br>
 
     <mat-horizontal-stepper [linear]="isLinear" #stepper>
 
         <!-- PRIMER PASO DATOS DEL CONDUCTOR -->
-        <mat-step [stepControl]="firstFormGroup">
+        <mat-step [stepControl]="conductorFormGroup">
 
-            <form [formGroup]="firstFormGroup">
+            <form [formGroup]="conductorFormGroup" class="formulario">
                 <ng-template matStepLabel>Datos del conductor</ng-template>
 
-                <!-- FORMULARIO A LLENAR -->
-                <div class="contenedor"> FORMULARIO </div>
+                <br> <br>
+
+                <mat-form-field>
+                    <input matInput placeholder="DNI" type="number" formControlName="dni" [matAutocomplete]="dni">
+                    <mat-autocomplete #dni="matAutocomplete">
+                        <mat-option *ngFor="let conductor of listaConductores" [value]="conductor.dni"
+                            (onSelectionChange)="completarConductor(conductor)">
+                            {{ conductor.dni }}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+
+                <br>
+
+                <mat-form-field>
+                    <input matInput placeholder="Apellido" formControlName="apellidoConductor"
+                        (click)="verificarConductor()">
+                </mat-form-field>
+
+                <br>
+
+                <mat-form-field>
+                    <input matInput placeholder="Nombre" formControlName="nombreConductor">
+                </mat-form-field>
+
+                <br> <br>
 
                 <div>
-                    <button mat-button matStepperNext>Next</button>
+                    <button mat-button matStepperNext (click)="verificarConductor()"> Siguiente </button>
                 </div>
 
             </form>
@@ -22,16 +46,34 @@
         </mat-step>
 
         <!-- SEGUNDO PASO DATOS DEL VEHICULO -->
-        <mat-step [stepControl]="secondFormGroup">
+        <mat-step [stepControl]="vehiculoFormGroup">
 
-            <form [formGroup]="secondFormGroup">
+            <form [formGroup]="vehiculoFormGroup" class="formulario">
                 <ng-template matStepLabel>Datos del vehiculo</ng-template>
-                
-                <!-- FORMULARIO A LLENAR -->
+
+                <br> <br>
+
+                <mat-form-field>
+                    <input matInput placeholder="Dominio" formControlName="dominioVehiculo" [matAutocomplete]="dominio">
+                    <mat-autocomplete #dominio="matAutocomplete">
+                        <mat-option *ngFor="let vehiculo of listaVehiculos" [value]="vehiculo.id"
+                            (onSelectionChange)="completarVehiculo(vehiculo)">
+                            {{ vehiculo.id }}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+
+                <br>
+
+                <mat-form-field>
+                    <textarea matInput placeholder="Descripcion" formControlName="descripcionVehiculo"></textarea>
+                </mat-form-field>
+
+                <br> <br>
 
                 <div>
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button matStepperNext>Next</button>
+                    <button mat-button matStepperPrevious> Volver </button>
+                    <button mat-button matStepperNext (click)="verificarVehiculo()"> Siguiente </button>
                 </div>
 
             </form>
@@ -39,16 +81,28 @@
         </mat-step>
 
         <!-- TERCER PASO DATOS DEL EXAMEN -->
-        <mat-step [stepControl]="secondFormGroup">
+        <mat-step [stepControl]="examenFormGroup">
 
-            <form [formGroup]="secondFormGroup">
+            <form [formGroup]="examenFormGroup" class="formulario">
                 <ng-template matStepLabel>Datos del examen</ng-template>
-                
-                <!-- FORMULARIO A LLENAR -->
+
+                <br> <br>
+
+                <mat-form-field>
+                    <input matInput placeholder="Numero de muestra" formControlName="numeroMuestraExamen">
+                </mat-form-field>
+
+                <br>
+
+                <mat-form-field>
+                    <input matInput type="number" placeholder="Resultado" formControlName="resultadoExamen">
+                </mat-form-field>
+
+                <br> <br>
 
                 <div>
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button matStepperNext>Next</button>
+                    <button mat-button matStepperPrevious> Volver </button>
+                    <button mat-button matStepperNext> Siguiente </button>
                 </div>
 
             </form>
@@ -56,16 +110,28 @@
         </mat-step>
 
         <!-- CUARTO PASO DATOS DE LA DOCUMENTACION -->
-        <mat-step [stepControl]="secondFormGroup">
+        <mat-step [stepControl]="documentacionFormGroup">
 
-            <form [formGroup]="secondFormGroup">
+            <form [formGroup]="documentacionFormGroup" class="formulario">
                 <ng-template matStepLabel>Documentacion</ng-template>
-                
-                <!-- FORMULARIO A LLENAR -->
+
+                <br> <br>
+
+                <mat-form-field>
+                    <input matInput placeholder="Numero de acta" formControlName="numeroActaDocumentacion">
+                </mat-form-field>
+
+                <br>
+
+                <mat-form-field>
+                    <input matInput placeholder="Numero de retencion" formControlName="numeroRetencionDocumentacion">
+                </mat-form-field>
+
+                <br> <br>
 
                 <div>
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button matStepperNext>Next</button>
+                    <button mat-button matStepperPrevious> Volver </button>
+                    <button mat-button matStepperNext> Siguiente </button>
                 </div>
 
             </form>
@@ -75,11 +141,19 @@
         <mat-step>
             <ng-template matStepLabel>Resumen y Guardar</ng-template>
 
-            RESUMEN DE LA PRUEBA
+            <div>
+                <mat-form-field>
+                    <input matInput placeholder="Fecha">
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="Hora">
+                </mat-form-field>
+
+            </div>
 
             <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button (click)="stepper.reset()">Reset</button>
+                <button mat-button matStepperPrevious> Volver </button>
+                <button mat-button (click)="guardarPrueba()"> Guardar y Enviar </button>
             </div>
 
         </mat-step>

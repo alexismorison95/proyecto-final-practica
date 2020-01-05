@@ -10,6 +10,7 @@ export class LoginService {
 
   private logueado: boolean = false;
   private usuarioActivo: any;
+  private datosExaminador: any;
   private readonly URL_API = 'http://localhost:3000/api/';
 
   constructor( private http: HttpClient, private toastr: ToastrService ) {
@@ -26,6 +27,9 @@ export class LoginService {
 
   setUsuarioActivo(usuario) { this.usuarioActivo = usuario; }
 
+  getDatosExaminador() { return this.datosExaminador }
+
+  setDatosExaminador(datos) { this.datosExaminador = datos }
 
   login(usuario: any){
 
@@ -53,7 +57,7 @@ export class LoginService {
     }, err => {
 
       console.log(err.error);
-      this.toastr.success('Por favor, inicia sesión.', 'Bienvenido ^-^');
+      this.toastr.success('Por favor, inicia sesión.', 'Bienvenido ^_^');
 
     });
 

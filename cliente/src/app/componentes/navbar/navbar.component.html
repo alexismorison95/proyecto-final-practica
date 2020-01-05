@@ -28,16 +28,21 @@
     <button mat-button *ngIf="administrador || administrativo" [routerLink]="[ '/prestamos' ]" routerLinkActive="active">Préstamos</button>
 
     <!-- MENU PRUEBAS -->
-    <button mat-button [matMenuTriggerFor]="pruebas" [routerLink]="[ '/pruebas' ]" routerLinkActive="active">
+    <button mat-button *ngIf="examinador" [routerLink]="[ '/pruebas' ]" routerLinkActive="active">
         Pruebas
-        <mat-icon>expand_more</mat-icon>
+    </button>
+
+    <button mat-button *ngIf="administrador || administrativo" [matMenuTriggerFor]="pruebas" 
+            [routerLink]="[ '/pruebas' ]" routerLinkActive="active">
+        Pruebas
+        <mat-icon >expand_more</mat-icon >
     </button>
     <mat-menu #pruebas="matMenu">
-        <button mat-menu-item [routerLink]="[ '/pruebas' ]">
+        <button mat-menu-item [routerLink]="[ '/pruebas' ]" *ngIf="administrador" >
             <mat-icon>library_add</mat-icon>
             <span>Nueva Prueba</span>
         </button>
-        <button mat-menu-item *ngIf="administrador || administrativo">
+        <button mat-menu-item>
             <mat-icon>library_books</mat-icon>
             <span>Verificación</span>
         </button>
