@@ -1,0 +1,81 @@
+<mat-toolbar class="submenu">
+    Opciones
+
+    <span class="example-fill-remaining-space"></span>
+
+    <button mat-stroked-button color="primary" (click)="modificarUsuario()" 
+            *ngIf="!modificar"> Modificar Perfil </button>
+
+    <span style="width: 10px;"></span>
+    <button mat-stroked-button color="warn" (click)="cerrarSesion()"> Cerrar Sesion </button>
+
+</mat-toolbar>
+
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col columna1">
+
+            <form [formGroup]="formGroup">
+
+                <br> <br>
+
+                <mat-form-field>
+                    <input matInput placeholder="Nombre Real" formControlName="nombreReal">
+                </mat-form-field>
+
+                <br>
+
+                <mat-form-field>
+                    <input matInput placeholder="Nombre De Usuario" formControlName="nombreUsuario">
+                </mat-form-field>
+
+                <br>
+
+                <mat-form-field>
+                    <input matInput placeholder="Contrasenia" formControlName="contraseniaUsuario"
+                        [type]="hide ? 'password' : 'text'">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide">
+                        <mat-icon> {{ hide ? 'visibility_off' : 'visibility' }} </mat-icon>
+                    </button>
+                </mat-form-field>
+
+                <br>
+
+                <mat-form-field>
+                    <input matInput placeholder="Tipo De Usuario" formControlName="tipoUsuario">
+                </mat-form-field>
+                
+                <br>
+
+                <button mat-raised-button color="warn" class="btnCancelar" *ngIf="modificar" 
+                        (click)="cancelar()"> Cancelar
+                </button>
+
+                <button [disabled]="formGroup.invalid" class="btnAceptar" (click)="guardar()" mat-raised-button
+                    type="submit" color="primary" *ngIf="modificar"> Guardar Cambios </button>
+                
+                <div class="espacio" *ngIf="modificar"></div>
+
+                <mat-divider></mat-divider>
+
+            </form>
+
+            <br>
+
+            <mat-form-field *ngIf="loginService.getUsuarioActivo().tipousuario == 'examinador'">
+                <input #equipoAsignado matInput placeholder="Equipo Asignado" [disabled]="'true'">
+            </mat-form-field>
+
+        </div>
+
+
+        <div class="col">
+            <mat-calendar class="calendario"></mat-calendar>
+        </div>
+
+    </div>
+
+</div>

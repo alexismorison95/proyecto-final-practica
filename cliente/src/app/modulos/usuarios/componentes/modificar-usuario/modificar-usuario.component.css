@@ -16,3 +16,7 @@ mat-form-field{
 .btnAceptar{
     margin-right: -220px;
 }
+
+.btnContra{
+    width: 400px;
+}

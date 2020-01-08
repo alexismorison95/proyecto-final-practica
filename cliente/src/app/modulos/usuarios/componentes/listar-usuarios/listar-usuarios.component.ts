@@ -25,8 +25,8 @@ export class ListarUsuariosComponent implements OnInit {
   columnasTabla: string[] = ['id', 'nombrereal', 'nombreusuario', 'tipousuario'];
   datos: MatTableDataSource<UsuariosInterface>;
 
-  @ViewChild(MatPaginator, {static: true}) paginador: MatPaginator;
-  @ViewChild(MatSort, {static: true}) ordenar: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginador: MatPaginator;
+  @ViewChild(MatSort, { static: true }) ordenar: MatSort;
 
   selectedRowIndex: any;
   opcionesBool: boolean = true;
@@ -34,8 +34,8 @@ export class ListarUsuariosComponent implements OnInit {
   ultimo: number;
 
 
-  constructor( private abmService: AbmsService, private router: Router, 
-              public dialog: MatDialog, private loginService: LoginService, private toastr: ToastrService ) {
+  constructor(private abmService: AbmsService, private router: Router,
+    public dialog: MatDialog, private loginService: LoginService, private toastr: ToastrService) {
 
     this.cargarTabla();
 
@@ -63,21 +63,21 @@ export class ListarUsuariosComponent implements OnInit {
 
       this.datos.paginator = this.paginador;
       this.datos.sort = this.ordenar;
-      
+
 
     }, err => {
 
       console.log(err);
       this.toastr.error(err.error, 'Error.');
-      
+
     });
 
   }
 
 
   opciones(row: any) {
-    
-    if(this.ultimo == row.id) {
+
+    if (this.ultimo == row.id) {
 
       this.ultimo = null;
       this.opcionesBool = true;
@@ -93,15 +93,15 @@ export class ListarUsuariosComponent implements OnInit {
       this.opcionesBool = false;
 
     }
-    
+
 
   }
 
 
   modificarUsuario() {
 
-    this.router.navigateByUrl('usuarios/modificar/' + this.usuarioSeleccionado.id, 
-                          {state: this.usuarioSeleccionado});
+    this.router.navigateByUrl('usuarios/modificar/' + this.usuarioSeleccionado.id,
+      { state: this.usuarioSeleccionado });
 
   }
 
@@ -114,27 +114,32 @@ export class ListarUsuariosComponent implements OnInit {
         width: '410px',
         data: this.usuarioSeleccionado
       });
-  
+
       dialogRef.afterClosed().subscribe(id => {
-  
+
         if (id) {
-  
+
           this.abmService.baja('usuarios/eliminar/' + id).subscribe((res: any) => {
-            
+
             console.log(res);
-            
+
             this.toastr.success(res[0].nombreusuario, 'Eliminado con exito');
             this.cargarTabla();
-            
+
+            this.ultimo = null;
+            this.opcionesBool = true;
+            this.selectedRowIndex = null;
+            this.usuarioSeleccionado = null;
+
           }, err => {
 
             console.log(err);
             this.toastr.error(err.message, 'Error.')
-            
+
           });
-  
+
         }
-        
+
       });
 
     }
@@ -142,7 +147,7 @@ export class ListarUsuariosComponent implements OnInit {
 
       this.toastr.error('No puede eliminar su propio usuario.', 'Error.')
       console.log("No puede eliminar su propio usuario");
-      
+
     }
 
   }

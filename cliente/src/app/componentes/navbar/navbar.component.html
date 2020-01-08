@@ -7,14 +7,14 @@
 
     <button mat-button *ngIf="administrador || administrativo" [routerLink]="[ '/usuarios' ]" routerLinkActive="active">Usuarios</button>
 
-    <button mat-button *ngIf="administrador || administrativo" [routerLink]="[ '/examinadores' ]" routerLinkActive="active">Examinadores</button>
+    <!-- <button mat-button *ngIf="administrador || administrativo" [routerLink]="[ '/examinadores' ]" routerLinkActive="active">Examinadores</button> -->
 
     <!-- MENU EQUIPOS -->
-    <button mat-button [matMenuTriggerFor]="equipos" *ngIf="administrador || administrativo" [routerLink]="[ '/equipos' ]" routerLinkActive="active">
+    <button mat-button *ngIf="administrador || administrativo" [routerLink]="[ '/equipos' ]" routerLinkActive="active">
         Equipos
-        <mat-icon>expand_more</mat-icon>
+        <!-- <mat-icon>expand_more</mat-icon> -->
     </button>
-    <mat-menu #equipos="matMenu">
+    <!-- <mat-menu #equipos="matMenu">
         <button mat-menu-item [routerLink]="[ '/equipos' ]" (click)="setActiveEquipos()">
             <mat-icon>person</mat-icon>
             <span>Ver Equipos</span>
@@ -23,16 +23,20 @@
             <mat-icon>build</mat-icon>
             <span>Vigencias</span>
         </button>
-    </mat-menu>
+    </mat-menu> -->
 
     <button mat-button *ngIf="administrador || administrativo" [routerLink]="[ '/prestamos' ]" routerLinkActive="active">Préstamos</button>
 
     <!-- MENU PRUEBAS -->
-    <button mat-button *ngIf="examinador" [routerLink]="[ '/pruebas' ]" routerLinkActive="active">
+    <button mat-button *ngIf="examinador" [routerLink]="[ '/pruebas/nueva' ]" routerLinkActive="active">
         Pruebas
     </button>
 
-    <button mat-button *ngIf="administrador || administrativo" [matMenuTriggerFor]="pruebas" 
+    <button mat-button *ngIf="administrador || administrativo" [routerLink]="[ '/pruebas/verificar' ]" routerLinkActive="active">
+        Pruebas
+    </button>
+
+    <!-- <button mat-button *ngIf="administrador || administrativo" [matMenuTriggerFor]="pruebas" 
             [routerLink]="[ '/pruebas' ]" routerLinkActive="active">
         Pruebas
         <mat-icon >expand_more</mat-icon >
@@ -46,14 +50,14 @@
             <mat-icon>library_books</mat-icon>
             <span>Verificación</span>
         </button>
-    </mat-menu>
+    </mat-menu> -->
 
     <!-- MENU REPORTES -->
-    <button mat-button [matMenuTriggerFor]="reporte" *ngIf="administrador || administrativo" [routerLink]="[ '/reportes' ]" routerLinkActive="active">
+    <button mat-button *ngIf="administrador || administrativo" [routerLink]="[ '/reportes' ]" routerLinkActive="active">
         Reportes
-        <mat-icon>expand_more</mat-icon>
+        <!-- <mat-icon>expand_more</mat-icon> -->
     </button>
-    <mat-menu #reporte="matMenu">
+    <!-- <mat-menu #reporte="matMenu">
         <button mat-menu-item [routerLink]="[ '/reportes' ]">
             <mat-icon>person</mat-icon>
             <span>DNI - Nombre</span>
@@ -70,16 +74,16 @@
             <mat-icon>pie_chart</mat-icon>
             <span>Gráficos</span>
         </button>
-    </mat-menu>
+    </mat-menu> -->
 
     <span class="example-fill-remaining-space"></span>
     
     <!-- MENU DE USUARIO -->
-    <button mat-button [matMenuTriggerFor]="usuario" matTooltip="Mi Cuenta">
+    <button mat-button matTooltip="Mi Cuenta" [routerLink]="[ '/perfil' ]" routerLinkActive="active">
         {{ loginService.getUsuarioActivo().nombrereal | uppercase }}
-        <mat-icon>expand_more</mat-icon>
+        <!-- <mat-icon>expand_more</mat-icon> -->
     </button>
-    <mat-menu #usuario="matMenu">
+    <!-- <mat-menu #usuario="matMenu">
         <button mat-menu-item>
             <mat-icon>account_circle</mat-icon>
             <span>Mi Perfil</span>
@@ -93,6 +97,6 @@
             <mat-icon>power_settings_new</mat-icon>
             <span>Cerrar Sesión</span>
         </button>
-    </mat-menu>
+    </mat-menu> -->
 
 </mat-toolbar>

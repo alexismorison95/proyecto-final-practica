@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
-import { LoginService } from "../../servicios/login.service";
 import { Router } from "@angular/router";
+
+import { LoginService } from "../../servicios/login.service";
+
 
 @Component({
   selector: 'app-navbar',
@@ -38,24 +40,5 @@ export class NavbarComponent implements OnInit {
     }
 
   }
-
-  cerrarSesion() {
-
-    this.loginService.logout().subscribe(res => {
-
-      console.log(res);
-      this.loginService.setLogueado(false);
-
-      this.router.navigate(['/']);
-
-    }, err => {
-
-      console.log(err);
-      
-    });
-    
-  }
-
-
 
 }

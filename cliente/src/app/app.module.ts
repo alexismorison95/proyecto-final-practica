@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+// PARA CAMBIAR IDIOMA DE COMPONENTES A ESPANOL
+import {MAT_DATE_LOCALE} from '@angular/material';
+
 // LOAD BAR
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
@@ -32,6 +35,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { NavbarComponent } from './componentes/navbar/navbar.component';
 import { NotFoundComponent } from './componentes/not-found/not-found.component';
+import { MiPerfilComponent } from './componentes/mi-perfil/mi-perfil.component';
 
 
 @NgModule({
@@ -39,7 +43,8 @@ import { NotFoundComponent } from './componentes/not-found/not-found.component';
     AppComponent,
     LoginComponent,
     NavbarComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    MiPerfilComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +63,11 @@ import { NotFoundComponent } from './componentes/not-found/not-found.component';
     LoadingBarHttpClientModule,
     LoadingBarRouterModule
   ],
-  providers: [LoginService, GuardService, GuardChildService, AbmsService],
+  providers: [LoginService, 
+              GuardService, 
+              GuardChildService, 
+              AbmsService, 
+              { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

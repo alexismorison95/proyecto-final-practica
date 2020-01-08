@@ -5,6 +5,7 @@ import { GuardChildService } from "./servicios/guard-child.service";
 
 import { LoginComponent } from './componentes/login/login.component';
 import { NotFoundComponent } from "./componentes/not-found/not-found.component";
+import { MiPerfilComponent } from "./componentes/mi-perfil/mi-perfil.component";
 
 
 const routes: Routes = [
@@ -30,6 +31,8 @@ const routes: Routes = [
 
   { path: 'reportes', loadChildren: () => import('./modulos/reportes/reportes.module').then(m => 
     m.ReportesModule), canActivateChild: [GuardChildService] },
+  
+  { path: 'perfil', component: MiPerfilComponent, canActivate: [GuardService] },
 
   { path: '**', component: NotFoundComponent, canActivate: [GuardService] }
 ];

@@ -50,6 +50,27 @@ exports.listar_pruebas = async(req, res) => {
 
 }
 
+// LISTAR pruebas
+exports.listar_pruebas_no_verificadas = async(req, res) => {
+
+    try {
+
+        db = conexion(req.session.rol);
+
+        const respuesta = await db.query('select * from prueba where verificado=false;');
+
+        res.status(200).json(respuesta.rows);
+
+    } catch (error) {
+
+        console.log(error.stack);
+
+        res.status(500).json('Internal Server Error');
+
+    }
+
+}
+
 
 // LISTAR prueba
 exports.listar_prueba = async(req, res) => {

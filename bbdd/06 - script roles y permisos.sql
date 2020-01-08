@@ -27,9 +27,10 @@ GRANT USAGE, SELECT ON SEQUENCE equipo_id_seq TO administrador;
 --GRANT SELECT,INSERT,UPDATE ON TABLE prueba TO examinador;
 --REVOKE ALL PRIVILEGES ON TABLE conductor FROM administrador;
 GRANT SELECT ON TABLE equipo, examinador, periodoutilizable, prestamo, prueba, dominio, conductor TO examinador;
-GRANT INSERT, UPDATE ON TABLE prueba, dominio, conductor, equipo TO examinador;
+GRANT INSERT, UPDATE ON TABLE prueba, dominio, conductor, equipo, examinador TO examinador;
 GRANT USAGE, SELECT ON SEQUENCE usuario_id_seq TO examinador;
 GRANT USAGE, SELECT ON SEQUENCE prueba_id_seq TO examinador;
+GRANT USAGE, SELECT ON SEQUENCE examinador_id_seq TO examinador;
 
 
 -- ADMINISTRATIVO_ROL

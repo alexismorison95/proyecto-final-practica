@@ -166,7 +166,7 @@ export class NuevaPruebaComponent implements OnInit {
 
     this.vehiculoFormGroup.setValue({
       dominioVehiculo: valor.id,
-      descripcionVehiculo: valor.descripcion
+      descripcionVehiculo: valor.descripcion.lowerCase()
     });
     
   }
@@ -230,9 +230,6 @@ export class NuevaPruebaComponent implements OnInit {
       documentacionDatos.numeroRetencionDocumentacion = 0;
 
     }
-
-    console.log(documentacionDatos);
-    
 
     const prueba:any = {fecha: fecha, hora: hora, nromuestra: this.numeroActualEquipo,
                         resultado: examenDatos.resultadoExamen, nroacta: documentacionDatos.numeroActaDocumentacion,
