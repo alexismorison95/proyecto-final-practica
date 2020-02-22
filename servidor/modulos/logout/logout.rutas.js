@@ -1,5 +1,5 @@
 const express = require('express');
-const db = require('../configuraciones/db.conexion')("sesion_user"); // Otra forma de iniciar la conexion
+const db = require('../bbdd/db.conexion')("sesion_user"); // Otra forma de iniciar la conexion
 
 const rutasLogout = express.Router();
 

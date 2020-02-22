@@ -1,8 +1,8 @@
-const conexion = require('../configuraciones/db.conexion');
+const conexion = require('../bbdd/db.conexion');
 
 
-// ALTA PU
-exports.alta_pu = async(req, res) => {
+// ALTA DOMINIO
+exports.alta_dominio = async(req, res) => {
 
     db = conexion(req.session.rol);
 
@@ -10,9 +10,8 @@ exports.alta_pu = async(req, res) => {
 
         // Transaccion
         await db.query('BEGIN');
-        const queryText = 'select * from alta_periodoutilizable($1, $2, $3, $4);';
-        const respuesta = await db.query(queryText, [req.body.fechainicio, req.body.fechavencimiento,
-                                                        req.body.nroingreso, req.body.idequipo]);
+        const queryText = 'select * from alta_dominio($1, $2);';
+        const respuesta = await db.query(queryText, [req.body.id, req.body.descripcion]);
         await db.query('COMMIT');
 
         res.status(200).json(respuesta.rows);
@@ -30,14 +29,14 @@ exports.alta_pu = async(req, res) => {
 }
 
 
-// LISTAR PUS
-exports.listar_pus = async(req, res) => {
+// LISTAR DOMINIOS
+exports.listar_dominios = async(req, res) => {
 
     try {
 
         db = conexion(req.session.rol);
 
-        const respuesta = await db.query('select * from periodoutilizable;');
+        const respuesta = await db.query('select * from dominio;');
 
         res.status(200).json(respuesta.rows);
 
@@ -52,14 +51,14 @@ exports.listar_pus = async(req, res) => {
 }
 
 
-// LISTAR PU
-exports.listar_pu = async(req, res) => {
+// LISTAR DOMINIO
+exports.listar_dominio = async(req, res) => {
 
     try {
 
         db = conexion(req.session.rol);
 
-        const respuesta = await db.query('select * from periodoutilizable where id = $1;', [req.params.id]);
+        const respuesta = await db.query('select * from dominio where id = $1;', [req.params.id]);
 
         res.status(200).json(respuesta.rows);
 
@@ -74,14 +73,14 @@ exports.listar_pu = async(req, res) => {
 }
 
 
-// BAJA PU
-exports.baja_pu = async (req, res) => {
+// MODIFICAR DOMINIO
+exports.modificar_dominio = async (req, res) => {
 
     try {
 
         db = conexion(req.session.rol);
 
-        const respuesta = await db.query('select * from baja_periodoutilizable($1)', [req.body.id]);
+        const respuesta = await db.query('select * from modificacion_dominio($1, $2)', [req.body.id, req.body.descripcion]);
 
         res.status(200).json(respuesta.rows);
 

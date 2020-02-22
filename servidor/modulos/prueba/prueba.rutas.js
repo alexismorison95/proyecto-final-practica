@@ -1,5 +1,5 @@
 const express = require('express');
-const pruebaControlador = require('../controladores/prueba.controlador');
+const pruebaControlador = require('./prueba.controlador');
 
 const rutasPrueba = express.Router();
 

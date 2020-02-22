@@ -39,7 +39,6 @@ const auth = (req, res, next) => {
 
 
 // MIDDLEWARES
-
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cors({ origin: 'http://localhost:4200', credentials: true })); // Desarrollo
@@ -57,16 +56,16 @@ app.use(session({
 
 
 // RUTAS
-app.use('/api/', require('./rutas/login.rutas'));
-app.use('/api/', auth, require('./rutas/logout.rutas'));
-app.use('/api/', auth, require('./rutas/conductor.rutas'));
-app.use('/api/', auth, require('./rutas/usuario.rutas'));
-app.use('/api/', auth, require('./rutas/dominio.rutas'));
+app.use('/api/', require('./modulos/login/login.rutas'));
+app.use('/api/', auth, require('./modulos/logout/logout.rutas'));
+app.use('/api/', auth, require('./modulos/conductor/conductor.rutas'));
+app.use('/api/', auth, require('./modulos/usuario/usuario.rutas'));
+app.use('/api/', auth, require('./modulos/dominio/dominio.rutas'));
 // app.use('/api/', auth, require('./rutas/examinador.rutas'));
-app.use('/api/', auth, require('./rutas/equipo.rutas'));
-app.use('/api/', auth, require('./rutas/periodoutilizable.rutas'));
-app.use('/api/', auth, require('./rutas/prestamo.rutas'));
-app.use('/api/', auth, require('./rutas/prueba.rutas'));
+app.use('/api/', auth, require('./modulos/equipo/equipo.rutas'));
+app.use('/api/', auth, require('./modulos/periodoutilizable/periodoutilizable.rutas'));
+app.use('/api/', auth, require('./modulos/prestamo/prestamo.rutas'));
+app.use('/api/', auth, require('./modulos/prueba/prueba.rutas'));
 
 
 // ENCENDER SERVIDOR

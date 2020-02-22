@@ -1,8 +1,8 @@
-const conexion = require('../configuraciones/db.conexion');
+const conexion = require('../bbdd/db.conexion');
 
 
-// ALTA DOMINIO
-exports.alta_dominio = async(req, res) => {
+// ALTA prestamo
+exports.alta_prestamo = async(req, res) => {
 
     db = conexion(req.session.rol);
 
@@ -10,8 +10,10 @@ exports.alta_dominio = async(req, res) => {
 
         // Transaccion
         await db.query('BEGIN');
-        const queryText = 'select * from alta_dominio($1, $2);';
-        const respuesta = await db.query(queryText, [req.body.id, req.body.descripcion]);
+        const queryText = 'select * from alta_prestamo($1, $2, $3, $4, $5);';
+        const respuesta = await db.query(queryText, [req.body.fechaprestamo, req.body.horaprestamo,
+                                                    req.body.nroinicial, req.body.idexaminador, 
+                                                    req.body.idequipo]);
         await db.query('COMMIT');
 
         res.status(200).json(respuesta.rows);
@@ -29,14 +31,14 @@ exports.alta_dominio = async(req, res) => {
 }
 
 
-// LISTAR DOMINIOS
-exports.listar_dominios = async(req, res) => {
+// LISTAR prestamos
+exports.listar_prestamos = async(req, res) => {
 
     try {
 
         db = conexion(req.session.rol);
 
-        const respuesta = await db.query('select * from dominio;');
+        const respuesta = await db.query('select * from prestamo;');
 
         res.status(200).json(respuesta.rows);
 
@@ -51,14 +53,14 @@ exports.listar_dominios = async(req, res) => {
 }
 
 
-// LISTAR DOMINIO
-exports.listar_dominio = async(req, res) => {
+// LISTAR prestamo
+exports.listar_prestamo = async(req, res) => {
 
     try {
 
         db = conexion(req.session.rol);
 
-        const respuesta = await db.query('select * from dominio where id = $1;', [req.params.id]);
+        const respuesta = await db.query('select * from prestamo where id = $1;', [req.params.id]);
 
         res.status(200).json(respuesta.rows);
 
@@ -73,14 +75,14 @@ exports.listar_dominio = async(req, res) => {
 }
 
 
-// MODIFICAR DOMINIO
-exports.modificar_dominio = async (req, res) => {
+// BAJA PRESTAMO
+exports.baja_prestamo = async (req, res) => {
 
     try {
 
         db = conexion(req.session.rol);
 
-        const respuesta = await db.query('select * from modificacion_dominio($1, $2)', [req.body.id, req.body.descripcion]);
+        const respuesta = await db.query('select * from baja_prestamo($1, $2, $3, $4)', [req.body.id,                           req.body.fechadevolucion, req.body.horadevolucion, req.body.nrodevolucion]);
 
         res.status(200).json(respuesta.rows);
 

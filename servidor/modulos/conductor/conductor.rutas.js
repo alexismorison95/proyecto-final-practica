@@ -1,5 +1,5 @@
 const express = require('express');
-const conductorControlador = require('../controladores/conductor.controlador');
+const conductorControlador = require('./conductor.controlador');
 
 const rutasConductor = express.Router();
 

@@ -1,8 +1,8 @@
-const conexion = require('../configuraciones/db.conexion');
+const conexion = require('../bbdd/db.conexion');
 
 
-// ALTA prestamo
-exports.alta_prestamo = async(req, res) => {
+// ALTA PU
+exports.alta_pu = async(req, res) => {
 
     db = conexion(req.session.rol);
 
@@ -10,10 +10,9 @@ exports.alta_prestamo = async(req, res) => {
 
         // Transaccion
         await db.query('BEGIN');
-        const queryText = 'select * from alta_prestamo($1, $2, $3, $4, $5);';
-        const respuesta = await db.query(queryText, [req.body.fechaprestamo, req.body.horaprestamo,
-                                                    req.body.nroinicial, req.body.idexaminador, 
-                                                    req.body.idequipo]);
+        const queryText = 'select * from alta_periodoutilizable($1, $2, $3, $4);';
+        const respuesta = await db.query(queryText, [req.body.fechainicio, req.body.fechavencimiento,
+                                                        req.body.nroingreso, req.body.idequipo]);
         await db.query('COMMIT');
 
         res.status(200).json(respuesta.rows);
@@ -31,14 +30,14 @@ exports.alta_prestamo = async(req, res) => {
 }
 
 
-// LISTAR prestamos
-exports.listar_prestamos = async(req, res) => {
+// LISTAR PUS
+exports.listar_pus = async(req, res) => {
 
     try {
 
         db = conexion(req.session.rol);
 
-        const respuesta = await db.query('select * from prestamo;');
+        const respuesta = await db.query('select * from periodoutilizable;');
 
         res.status(200).json(respuesta.rows);
 
@@ -53,14 +52,14 @@ exports.listar_prestamos = async(req, res) => {
 }
 
 
-// LISTAR prestamo
-exports.listar_prestamo = async(req, res) => {
+// LISTAR PU
+exports.listar_pu = async(req, res) => {
 
     try {
 
         db = conexion(req.session.rol);
 
-        const respuesta = await db.query('select * from prestamo where id = $1;', [req.params.id]);
+        const respuesta = await db.query('select * from periodoutilizable where id = $1;', [req.params.id]);
 
         res.status(200).json(respuesta.rows);
 
@@ -75,14 +74,14 @@ exports.listar_prestamo = async(req, res) => {
 }
 
 
-// BAJA PRESTAMO
-exports.baja_prestamo = async (req, res) => {
+// BAJA PU
+exports.baja_pu = async (req, res) => {
 
     try {
 
         db = conexion(req.session.rol);
 
-        const respuesta = await db.query('select * from baja_prestamo($1, $2, $3, $4)', [req.body.id,                           req.body.fechadevolucion, req.body.horadevolucion, req.body.nrodevolucion]);
+        const respuesta = await db.query('select * from baja_periodoutilizable($1)', [req.body.id]);
 
         res.status(200).json(respuesta.rows);
 

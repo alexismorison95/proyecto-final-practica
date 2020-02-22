@@ -1,4 +1,4 @@
-const conexion = require('../configuraciones/db.conexion');
+const conexion = require('../bbdd/db.conexion');
 
 
 // ALTA USUARIO

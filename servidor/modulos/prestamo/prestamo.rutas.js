@@ -1,5 +1,5 @@
 const express = require('express');
-const prestamoControlador = require('../controladores/prestamo.controlador');
+const prestamoControlador = require('./prestamo.controlador');
 
 const rutasPrestamo = express.Router();
 

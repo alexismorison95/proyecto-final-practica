@@ -1,5 +1,5 @@
 const express = require('express');
-const conexion = require('../configuraciones/db.conexion');
+const conexion = require('../bbdd/db.conexion');
 
 // Nos conectamos con el usuario login_user de la BBDD para iniciar sesion
 db = conexion("login_user");

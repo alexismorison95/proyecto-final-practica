@@ -1,5 +1,5 @@
 const express = require('express');
-const dominioControlador = require('../controladores/dominio.controlador');
+const dominioControlador = require('./dominio.controlador');
 
 const rutasDominio = express.Router();
 

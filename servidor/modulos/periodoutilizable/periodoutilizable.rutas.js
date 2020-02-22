@@ -1,5 +1,5 @@
 const express = require('express');
-const puControlador = require('../controladores/periodoutilizable.controlador');
+const puControlador = require('./periodoutilizable.controlador');
 
 const rutasPU = express.Router();
 
