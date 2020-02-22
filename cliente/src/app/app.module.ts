@@ -11,12 +11,12 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 
 // GUARD
-import { GuardService } from "./servicios/guard.service";
-import { GuardChildService } from "./servicios/guard-child.service";
+import { GuardService } from "./servicios/guard/guard.service";
+import { GuardChildService } from "./servicios/guard-child/guard-child.service";
 
 // SERVICIOS
-import { LoginService } from "./servicios/login.service";
-import { AbmsService } from "./servicios/abms.service";
+import { LoginService } from "./servicios/login/login.service";
+import { AbmsService } from "./servicios/abms/abms.service";
 
 // MATERIAL
 import { MaterialModulo } from './app.material';

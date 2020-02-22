@@ -2,8 +2,12 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from "@angular/router";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { LoginService } from "../../servicios/login.service";
-import { AbmsService } from "../../servicios/abms.service";
+// SERVICIOS
+import { LoginService } from "../../servicios/login/login.service";
+import { AbmsService } from "../../servicios/abms/abms.service";
+
+// INTERFACES
+import { EquiposInterface } from "../../interfaces/equipos";
 
 
 @Component({
@@ -15,19 +19,25 @@ export class MiPerfilComponent implements OnInit {
 
   @ViewChild('equipoAsignado', {static: false}) equipoAsignado: ElementRef;
 
-  public formGroup: FormGroup;
-  hide = true;
-  modificar = false;
+  public formGroup: FormGroup; // Formulario
+  hide = true; // Valor bool para mostrar o ocultar la contrasenia
+  hide2 = true;
+  hide3 = true;
+  hide4 = true;
+  modificar = false; // Valor bool para poder modificar los datos de usuario
 
 
-  constructor( private loginService: LoginService, private router: Router, private formBuilder: FormBuilder,
-                private abmsService: AbmsService ) {
-
-  }
+  constructor(private loginService: LoginService, 
+              private router: Router, 
+              private formBuilder: FormBuilder,
+              private abmsService: AbmsService) { }
 
   ngOnInit() {
 
+    // Construyo el formulario
     this.buildForm();
+
+    // Si el usuario es un examinador traigo algunos datos mas
     this.getDatosExaminador();
 
   }
@@ -56,13 +66,17 @@ export class MiPerfilComponent implements OnInit {
 
     if(this.loginService.getUsuarioActivo().tipousuario == 'examinador') {
 
-      this.abmsService.listarUno('equipo/listar/' + this.loginService.getDatosExaminador().idEquipo)
+      // Peticion al servidor
+      this.abmsService.listarUno<EquiposInterface>('equipo/listar/' + this.loginService.getDatosExaminador().idEquipo)
         .subscribe(res => {
 
+          // Muestro el equipo asignado al examinador
+          // TODO: Puede ser que el examinador no tenga equipo asignado
           this.equipoAsignado.nativeElement.value = res[0].nombre;
 
         }, err => {
 
+          // TODO: Manejar este error
           console.log(err);
           
         });
@@ -96,6 +110,7 @@ export class MiPerfilComponent implements OnInit {
 
   }
 
+  // Funcion que se llama al cancelar la modificacion de usuario
   cancelar() {
 
     this.modificar = false;
@@ -103,6 +118,8 @@ export class MiPerfilComponent implements OnInit {
 
   }
 
+  // Funcion que se llama al guardar la modificacion de usuario
+  // TODO: al modificar contrasenia ir a nueva pagina y modificar con actual y nueva, etc...
   guardar() {
 
     const aux = this.formGroup.value;

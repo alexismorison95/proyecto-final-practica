@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { ToastrService } from 'ngx-toastr';
 
-import { AbmsService } from "../../../../servicios/abms.service";
+import { AbmsService } from "../../../../servicios/abms/abms.service";
 
 @Component({
   selector: 'app-alta-usuario',

@@ -17,6 +17,7 @@ td, th {
 
 .submenu {
     height: 50px;
+    background-color: rgb(238, 235, 235);
 }
 
 .highlightTableColor {

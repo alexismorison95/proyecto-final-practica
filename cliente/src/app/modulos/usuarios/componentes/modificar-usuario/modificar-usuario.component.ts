@@ -4,8 +4,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { ToastrService } from 'ngx-toastr';
 
-import { AbmsService } from "../../../../servicios/abms.service";
-import { LoginService } from "../../../../servicios/login.service";
+import { AbmsService } from "../../../../servicios/abms/abms.service";
+import { LoginService } from "../../../../servicios/login/login.service";
 
 @Component({
   selector: 'app-modificar-usuario',

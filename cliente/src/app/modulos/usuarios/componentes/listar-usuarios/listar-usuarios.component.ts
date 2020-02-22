@@ -11,8 +11,8 @@ import { UsuariosInterface } from "../../../../interfaces/usuarios";
 
 import { ToastrService } from 'ngx-toastr';
 
-import { LoginService } from "../../../../servicios/login.service";
-import { AbmsService } from "../../../../servicios/abms.service";
+import { LoginService } from "../../../../servicios/login/login.service";
+import { AbmsService } from "../../../../servicios/abms/abms.service";
 
 
 @Component({
@@ -34,8 +34,11 @@ export class ListarUsuariosComponent implements OnInit {
   ultimo: number;
 
 
-  constructor(private abmService: AbmsService, private router: Router,
-    public dialog: MatDialog, private loginService: LoginService, private toastr: ToastrService) {
+  constructor(private abmService: AbmsService, 
+              private router: Router,
+              public dialog: MatDialog, 
+              private loginService: LoginService, 
+              private toastr: ToastrService) {
 
     this.cargarTabla();
 
@@ -63,7 +66,6 @@ export class ListarUsuariosComponent implements OnInit {
 
       this.datos.paginator = this.paginador;
       this.datos.sort = this.ordenar;
-
 
     }, err => {
 

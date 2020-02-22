@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
 
     <br>
 
@@ -8,12 +8,12 @@
         <mat-step [stepControl]="conductorFormGroup">
 
             <form [formGroup]="conductorFormGroup" class="formulario">
-                <ng-template matStepLabel>Datos del conductor</ng-template>
-
+                <ng-template matStepLabel>Datos del <br>conductor</ng-template>
+                
                 <br> <br>
 
                 <mat-form-field>
-                    <input matInput placeholder="DNI" type="number" formControlName="dni" [matAutocomplete]="dni">
+                    <input matInput placeholder="DNI" type="number" min="0" formControlName="dni" [matAutocomplete]="dni">
                     <mat-autocomplete #dni="matAutocomplete">
                         <mat-option *ngFor="let conductor of listaConductores" [value]="conductor.dni"
                             (onSelectionChange)="completarConductor(conductor)">
@@ -49,7 +49,7 @@
         <mat-step [stepControl]="vehiculoFormGroup">
 
             <form [formGroup]="vehiculoFormGroup" class="formulario">
-                <ng-template matStepLabel>Datos del vehiculo</ng-template>
+                <ng-template matStepLabel>Datos del <br>vehiculo</ng-template>
 
                 <br> <br>
 
@@ -84,19 +84,20 @@
         <mat-step [stepControl]="examenFormGroup">
 
             <form [formGroup]="examenFormGroup" class="formulario">
-                <ng-template matStepLabel>Datos del examen</ng-template>
+                <ng-template matStepLabel>Datos del <br>examen</ng-template>
 
                 <br> <br>
 
-                <mat-form-field>
+                <mat-form-field class="chico2">
                     <input matInput placeholder="Numero de muestra" formControlName="numeroMuestraExamen">
                 </mat-form-field>
 
                 <br>
 
-                <mat-form-field>
-                    <input matInput type="number" placeholder="Resultado" formControlName="resultadoExamen">
+                <mat-form-field class="chico">
+                    <input matInput type="number" min="0" step='0.01' placeholder="Resultado" formControlName="resultadoExamen">
                 </mat-form-field>
+                g de alcohol por litro de sangre
 
                 <br> <br>
 
@@ -110,7 +111,7 @@
         </mat-step>
 
         <!-- CUARTO PASO DATOS DE LA DOCUMENTACION -->
-        <mat-step [stepControl]="documentacionFormGroup">
+        <mat-step [stepControl]="documentacionFormGroup" [optional]="true">
 
             <form [formGroup]="documentacionFormGroup" class="formulario">
                 <ng-template matStepLabel>Documentacion</ng-template>
@@ -118,13 +119,13 @@
                 <br> <br>
 
                 <mat-form-field>
-                    <input matInput placeholder="Numero de acta" formControlName="numeroActaDocumentacion">
+                    <input matInput type="number" placeholder="Numero de acta" formControlName="numeroActaDocumentacion">
                 </mat-form-field>
 
                 <br>
 
                 <mat-form-field>
-                    <input matInput placeholder="Numero de retencion" formControlName="numeroRetencionDocumentacion">
+                    <input matInput type="number" placeholder="Numero de retencion" formControlName="numeroRetencionDocumentacion">
                 </mat-form-field>
 
                 <br> <br>
@@ -139,7 +140,7 @@
         </mat-step>
 
         <mat-step>
-            <ng-template matStepLabel>Resumen y Guardar</ng-template>
+            <ng-template matStepLabel>Resumen <br>y guardar</ng-template>
 
             <div>
                 <mat-form-field>
@@ -153,7 +154,7 @@
 
             <div>
                 <button mat-button matStepperPrevious> Volver </button>
-                <button mat-button (click)="guardarPrueba()"> Guardar y Enviar </button>
+                <button mat-button (click)="guardarPrueba()"> Guardar y enviar </button>
             </div>
 
         </mat-step>

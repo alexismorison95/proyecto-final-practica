@@ -2,10 +2,17 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { AbmsService } from "../../../../servicios/abms.service";
-import { LoginService } from "../../../../servicios/login.service";
+// SERVICIOS
+import { AbmsService } from "../../../../servicios/abms/abms.service";
+import { LoginService } from "../../../../servicios/login/login.service";
 
+// TOAST
 import { ToastrService } from 'ngx-toastr';
+
+// INTERFACES
+import { EquiposInterface } from '../../../../interfaces/equipos';
+import { ConductoresInterface } from '../../../../interfaces/conductores';
+import { DominiosInterface } from '../../../../interfaces/dominio';
 
 
 @Component({
@@ -21,24 +28,26 @@ export class NuevaPruebaComponent implements OnInit {
   examenFormGroup: FormGroup;
   documentacionFormGroup: FormGroup;
 
-  listaConductores: any[];
-  listaVehiculos: any[];
+  listaConductores: ConductoresInterface[];
+  listaVehiculos: DominiosInterface[];
 
   idConductor;
   idDominio;
   numeroActualEquipo;
 
 
-  constructor( private formBuilder: FormBuilder, private abmsService: AbmsService, 
-                private loginService: LoginService, private toastr: ToastrService,
-                private router: Router ) {
+  constructor(private formBuilder: FormBuilder, 
+              private abmsService: AbmsService, 
+              private loginService: LoginService, 
+              private toastr: ToastrService,
+              private router: Router) {
 
     this.cargarConductores();
     this.cargarVehiculos();
     
     if(loginService.getUsuarioActivo().tipousuario == 'examinador') {
 
-      this.abmsService.listarUno('equipo/listar/' + this.loginService.getDatosExaminador().idEquipo)
+      this.abmsService.listarUno<EquiposInterface>('equipo/listar/' + this.loginService.getDatosExaminador().idEquipo)
       .subscribe(res => { 
 
         console.log(res);
@@ -67,7 +76,7 @@ export class NuevaPruebaComponent implements OnInit {
 
     this.examenFormGroup = this.formBuilder.group({
       numeroMuestraExamen: ['', Validators.required],
-      resultadoExamen: ['', Validators.required]
+      resultadoExamen: ['0', Validators.required]
     });
 
     this.examenFormGroup.controls['numeroMuestraExamen'].disable();
@@ -84,7 +93,7 @@ export class NuevaPruebaComponent implements OnInit {
 
   cargarConductores() {
 
-    this.abmsService.listarTodos('conductores/listar').subscribe(res => {
+    this.abmsService.listarTodos<ConductoresInterface>('conductores/listar').subscribe(res => {
 
       this.listaConductores = res;
       
@@ -108,8 +117,9 @@ export class NuevaPruebaComponent implements OnInit {
 
   verificarConductor() {
 
-    this.abmsService.listarUno('conductores/listar/' + this.conductorFormGroup.value.dni).subscribe(res => {
+    this.abmsService.listarUno<ConductoresInterface>('conductores/listar/' + this.conductorFormGroup.value.dni).subscribe(res => {
 
+      // No existe el conductor, lo doy de alta
       if(res[0] == null) {
 
         const aux = this.conductorFormGroup.value;
@@ -117,7 +127,6 @@ export class NuevaPruebaComponent implements OnInit {
                                 nombre: aux.nombreConductor,
                                 apellido: aux.apellidoConductor}
 
-        // No existe el conductor, lo doy de alta
         this.abmsService.alta(conductor, 'conductores/alta').subscribe((res: any) => {
 
           console.log(res);
@@ -150,7 +159,7 @@ export class NuevaPruebaComponent implements OnInit {
   
   cargarVehiculos() {
 
-    this.abmsService.listarTodos('dominio/listar').subscribe(res => {
+    this.abmsService.listarTodos<DominiosInterface>('dominio/listar').subscribe(res => {
 
       this.listaVehiculos = res;
       
@@ -166,14 +175,14 @@ export class NuevaPruebaComponent implements OnInit {
 
     this.vehiculoFormGroup.setValue({
       dominioVehiculo: valor.id,
-      descripcionVehiculo: valor.descripcion.lowerCase()
+      descripcionVehiculo: valor.descripcion.toLowerCase()
     });
     
   }
 
   verificarVehiculo() {
 
-    this.abmsService.listarUno('dominio/listar/' + this.vehiculoFormGroup.value.dominioVehiculo)
+    this.abmsService.listarUno<DominiosInterface>('dominio/listar/' + this.vehiculoFormGroup.value.dominioVehiculo)
       .subscribe(res => {
 
         if(res[0] == null) {
@@ -234,7 +243,7 @@ export class NuevaPruebaComponent implements OnInit {
     const prueba:any = {fecha: fecha, hora: hora, nromuestra: this.numeroActualEquipo,
                         resultado: examenDatos.resultadoExamen, nroacta: documentacionDatos.numeroActaDocumentacion,
                         nroretencion: documentacionDatos.numeroRetencionDocumentacion, dniconductor:conductorDatos.dni, iddominio: vehiculoDatos.dominioVehiculo,
-                        idprestamo: this.loginService.getDatosExaminador().idPrestamo }
+                        idprestamo: this.loginService.getDatosExaminador().idPrestamo}
     
     this.abmsService.alta(prueba, 'prueba/alta').subscribe(res => {
 

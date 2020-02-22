@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { CanActivate } from '@angular/router';
+import { CanActivateChild } from '@angular/router';
 
-import { LoginService } from './login.service';
+import { LoginService } from '../login/login.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GuardService implements CanActivate {
+export class GuardChildService implements CanActivateChild {
 
   constructor( private loginService: LoginService, private router: Router, private toastr: ToastrService ) { }
 
-  canActivate() {
+  canActivateChild() {
 
     if (!this.loginService.isLogueado()) {
 
@@ -25,5 +25,5 @@ export class GuardService implements CanActivate {
     return true;
 
   }
-
+  
 }

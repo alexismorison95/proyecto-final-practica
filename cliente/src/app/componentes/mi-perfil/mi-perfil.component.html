@@ -11,8 +11,11 @@
 
 </mat-toolbar>
 
+<!-- El perfil tiene dos partes, un menu de opciones y un contenedor para los datos -->
 <div class="container-fluid">
 
+    <!-- El contenedor tiene dos columnas, en la primera los datos del usuario y acciones
+        En la segunda un calendario -->
     <div class="row">
 
         <div class="col columna1">
@@ -33,7 +36,7 @@
 
                 <br>
 
-                <mat-form-field>
+                <mat-form-field *ngIf="!modificar">
                     <input matInput placeholder="Contrasenia" formControlName="contraseniaUsuario"
                         [type]="hide ? 'password' : 'text'">
                     <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
@@ -42,13 +45,19 @@
                     </button>
                 </mat-form-field>
 
-                <br>
+                <!-- FORMULARIO PARA MODIFICAR CONTRASENIA -->
+
+                <button mat-stroked-button color="warn" *ngIf="modificar"> 
+                    Modificar contraseña
+                </button>
+
+                <br *ngIf="modificar"> <br>
 
                 <mat-form-field>
                     <input matInput placeholder="Tipo De Usuario" formControlName="tipoUsuario">
                 </mat-form-field>
                 
-                <br>
+                <br> 
 
                 <button mat-raised-button color="warn" class="btnCancelar" *ngIf="modificar" 
                         (click)="cancelar()"> Cancelar

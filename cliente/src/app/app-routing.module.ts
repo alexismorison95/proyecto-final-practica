@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
-import { GuardService } from "./servicios/guard.service";
-import { GuardChildService } from "./servicios/guard-child.service";
+import { GuardService } from "./servicios/guard/guard.service";
+import { GuardChildService } from "./servicios/guard-child/guard-child.service";
 
 import { LoginComponent } from './componentes/login/login.component';
 import { NotFoundComponent } from "./componentes/not-found/not-found.component";

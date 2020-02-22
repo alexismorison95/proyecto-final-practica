@@ -17,9 +17,9 @@ export class AbmsService {
 
   }
 
-  listarUno<objetoInterface>(ruta: string): Observable<objetoInterface> {
+  listarUno<objetoInterface>(ruta: string): Observable<objetoInterface[]> {
 
-    return this.http.get<objetoInterface>(this.URL_API + ruta, { withCredentials: true });
+    return this.http.get<objetoInterface[]>(this.URL_API + ruta, { withCredentials: true });
 
   }
 

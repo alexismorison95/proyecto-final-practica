@@ -20,7 +20,7 @@
 
         <br>
 
-        <button [disabled]="formGroup.invalid" (click)="register()" mat-raised-button type="submit" class="boton-sesion" color="primary" > Iniciar Sesión </button>
+        <button [disabled]="formGroup.invalid" (click)="iniciarSesion()" mat-raised-button type="submit" class="boton-sesion" color="primary" > Iniciar Sesión </button>
 
     </form>
 
@@ -29,6 +29,8 @@
     <a style="font-size: small;" href="">¿Ha olvidado su contraseña?</a>
 
     <br> <br>
+
+    <!-- Estas cosas son las que pedia la catedra, login con redes sociales -->
 
     <button mat-stroked-button color="primary">Crear cuenta</button>
 
@@ -47,6 +49,5 @@
     <button mat-icon-button color="primary" (click)="ingresarFacebook()">
         <img src="./../../../assets/facebook32.png" alt="Facebook">
     </button>
-
 
 </div>

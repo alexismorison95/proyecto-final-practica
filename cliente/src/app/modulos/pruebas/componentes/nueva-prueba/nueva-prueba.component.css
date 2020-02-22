@@ -5,3 +5,24 @@
 mat-form-field{
     width: 400px;
 }
+
+.chico {
+    width: 80px;
+}
+
+.chico2 {
+    width: 300px;
+}
+
+/* SACAR FLECHITAS A LOS INPUTS NUMERICOS */
+/* Chrome, Safari, Edge, Opera */
+/* input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+/* input[type=number] {
+  -moz-appearance:textfield;
+}  */
