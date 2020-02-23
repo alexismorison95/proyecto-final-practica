@@ -1,10 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { EquiposComponent } from "./equipos.component";
+import { ListarEquiposComponent } from "./componentes/listar-equipos/listar-equipos.component";
+import { AltaEquipoComponent } from "./componentes/alta-equipo/alta-equipo.component";
+import { ModificarEquipoComponent } from "./componentes/modificar-equipo/modificar-equipo.component";
+
 
 const routes: Routes = [
-  { path: '', component: EquiposComponent }
+  { path: '', component: ListarEquiposComponent },
+
+  { path: 'nuevo', component: AltaEquipoComponent },
+
+  { path: 'modificar/:id', component: ModificarEquipoComponent }
 ];
 
 @NgModule({

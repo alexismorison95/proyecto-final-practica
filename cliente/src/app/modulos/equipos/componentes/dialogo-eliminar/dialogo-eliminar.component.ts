@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
-import { UsuariosInterface } from "../../../../interfaces/usuarios";
+import { EquiposInterface } from "../../../../interfaces/equipos";
 
 @Component({
   selector: 'app-dialogo-eliminar',
@@ -11,7 +11,7 @@ import { UsuariosInterface } from "../../../../interfaces/usuarios";
 export class DialogoEliminarComponent {
 
   constructor(public dialogRef: MatDialogRef<DialogoEliminarComponent>, 
-              @Inject(MAT_DIALOG_DATA) public data: UsuariosInterface) { }
+              @Inject(MAT_DIALOG_DATA) public data: EquiposInterface) { }
 
               
   onNoClick(): void {

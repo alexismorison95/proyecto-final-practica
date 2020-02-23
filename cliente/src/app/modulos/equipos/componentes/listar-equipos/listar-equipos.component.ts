@@ -9,7 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogoEliminarComponent } from "../dialogo-eliminar/dialogo-eliminar.component";
 
 // INTERFACES
-import { UsuariosInterface } from "../../../../interfaces/usuarios";
+import { EquiposInterface } from "../../../../interfaces/equipos";
 
 // TOAST
 import { ToastrService } from 'ngx-toastr';
@@ -18,37 +18,36 @@ import { ToastrService } from 'ngx-toastr';
 import { LoginService } from "../../../../servicios/login/login.service";
 import { AbmsService } from "../../../../servicios/abms/abms.service";
 
-
 @Component({
-  selector: 'app-listar-usuarios',
-  templateUrl: './listar-usuarios.component.html',
-  styleUrls: ['./listar-usuarios.component.css']
+  selector: 'app-listar-equipos',
+  templateUrl: './listar-equipos.component.html',
+  styleUrls: ['./listar-equipos.component.css']
 })
-export class ListarUsuariosComponent implements OnInit {
+export class ListarEquiposComponent implements OnInit {
 
-  columnasTabla: string[] = ['id', 'nombrereal', 'nombreusuario', 'tipousuario'];
-  datos: MatTableDataSource<UsuariosInterface>;
+  columnasTabla: string[] = ['id', 'nombre', 'estado', 'nroactual'];
+  datos: MatTableDataSource<EquiposInterface>;
 
   @ViewChild(MatPaginator, { static: true }) paginador: MatPaginator;
   @ViewChild(MatSort, { static: true }) ordenar: MatSort;
 
   selectedRowIndex: any;
   opcionesBool: boolean = true;
-  usuarioSeleccionado: any;
+  equipoSeleccionado: any;
   ultimo: number;
-
 
   constructor(private abmService: AbmsService, 
               private router: Router,
-              public dialog: MatDialog, 
+              public dialog: MatDialog,
               private loginService: LoginService, 
               private toastr: ToastrService) {
-
+    
     this.cargarTabla();
 
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
 
 
   aplicarFiltro(filterValue: string) {
@@ -64,7 +63,7 @@ export class ListarUsuariosComponent implements OnInit {
 
   cargarTabla() {
 
-    this.abmService.listarTodos<UsuariosInterface>('usuarios/listar').subscribe(res => {
+    this.abmService.listarTodos<EquiposInterface>('equipo/listar').subscribe(res => {
 
       this.datos = new MatTableDataSource(res);
 
@@ -88,73 +87,60 @@ export class ListarUsuariosComponent implements OnInit {
       this.ultimo = null;
       this.opcionesBool = true;
       this.selectedRowIndex = null;
-      this.usuarioSeleccionado = null;
+      this.equipoSeleccionado = null;
 
     }
     else {
 
-      this.usuarioSeleccionado = row;
+      this.equipoSeleccionado = row;
       this.selectedRowIndex = row.id;
       this.ultimo = row.id;
       this.opcionesBool = false;
 
     }
 
-
   }
 
+  modificarEquipo() {
 
-  modificarUsuario() {
-
-    this.router.navigateByUrl('usuarios/modificar/' + this.usuarioSeleccionado.id,
-      { state: this.usuarioSeleccionado });
-
+    this.router.navigateByUrl('equipos/modificar/' + this.equipoSeleccionado.id,
+      { state: this.equipoSeleccionado });
+    
   }
 
+  eliminarEquipo(): void {
 
-  eliminarUsuario(): void {
+    const dialogRef = this.dialog.open(DialogoEliminarComponent, {
+      width: '410px',
+      data: this.equipoSeleccionado
+    });
 
-    if (this.usuarioSeleccionado.id != this.loginService.getUsuarioActivo().id) {
+    dialogRef.afterClosed().subscribe(id => {
 
-      const dialogRef = this.dialog.open(DialogoEliminarComponent, {
-        width: '410px',
-        data: this.usuarioSeleccionado
-      });
+      if (id) {
 
-      dialogRef.afterClosed().subscribe(id => {
+        this.abmService.baja('equipo/baja/' + id).subscribe((res: any) => {
 
-        if (id) {
+          console.log(res);
 
-          this.abmService.baja('usuarios/eliminar/' + id).subscribe((res: any) => {
+          this.toastr.success(res[0].nombre, 'Eliminado con exito');
+          this.cargarTabla();
 
-            console.log(res);
-
-            this.toastr.success(res[0].nombreusuario, 'Eliminado con exito');
-            this.cargarTabla();
-
-            this.ultimo = null;
+          this.ultimo = null;
             this.opcionesBool = true;
             this.selectedRowIndex = null;
-            this.usuarioSeleccionado = null;
+            this.equipoSeleccionado = null;
 
-          }, err => {
+        }, err => {
 
-            console.log(err);
-            this.toastr.error(err.message, 'Error.')
+          console.log(err);
+          this.toastr.error(err.message, 'Error.')
 
-          });
+        });
+        
+      }
 
-        }
-
-      });
-
-    }
-    else {
-
-      this.toastr.error('No puede eliminar su propio usuario.', 'Error.')
-      console.log("No puede eliminar su propio usuario");
-
-    }
+    });
 
   }
 
