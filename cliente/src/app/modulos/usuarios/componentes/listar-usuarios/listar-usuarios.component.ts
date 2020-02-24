@@ -114,39 +114,57 @@ export class ListarUsuariosComponent implements OnInit {
 
   eliminarUsuario(): void {
 
+    // El usuario no puede eliminar su propio usuario
     if (this.usuarioSeleccionado.id != this.loginService.getUsuarioActivo().id) {
 
-      const dialogRef = this.dialog.open(DialogoEliminarComponent, {
-        width: '410px',
-        data: this.usuarioSeleccionado
-      });
+      // Un administrativo no puede eliminar a un administrador, solo un
+      // administrador puede eliminar a otro administrador si lo hubiera
+      if (this.usuarioSeleccionado.tipousuario == 'administrador' && 
+          this.loginService.getUsuarioActivo().tipousuario != 'administrador') {
 
-      dialogRef.afterClosed().subscribe(id => {
+        this.toastr.error('No puede eliminar un usuario de rol administrador.', 'Error.')
+        console.log("No puede eliminar un usuario de rol administrador");
 
-        if (id) {
+      }
+      else {
 
-          this.abmService.baja('usuarios/eliminar/' + id).subscribe((res: any) => {
-
-            console.log(res);
-
-            this.toastr.success(res[0].nombreusuario, 'Eliminado con exito');
-            this.cargarTabla();
-
-            this.ultimo = null;
-            this.opcionesBool = true;
-            this.selectedRowIndex = null;
-            this.usuarioSeleccionado = null;
-
-          }, err => {
-
-            console.log(err);
-            this.toastr.error(err.message, 'Error.')
-
-          });
-
-        }
-
-      });
+        // Abro el dialogo para confirmar la eliminacion
+        const dialogRef = this.dialog.open(DialogoEliminarComponent, {
+          width: '410px',
+          data: this.usuarioSeleccionado
+        });
+        
+        // Si confirmo se ejecuta lo siguiente y me da el id del usuario
+        dialogRef.afterClosed().subscribe(id => {
+  
+          if (id) {
+            
+            // Envio la peticion al servidor
+            this.abmService.baja('usuarios/eliminar/' + id).subscribe((res: any) => {
+  
+              console.log(res);
+              
+              // Muestro confirmacion y recargo la tabla
+              this.toastr.success(res[0].nombreusuario, 'Eliminado con exito');
+              this.cargarTabla();
+              
+              // reinicio la seleccion de fila
+              this.ultimo = null;
+              this.opcionesBool = true;
+              this.selectedRowIndex = null;
+              this.usuarioSeleccionado = null;
+  
+            }, err => {
+  
+              console.log(err);
+              this.toastr.error(err.message, 'Error.')
+  
+            });
+  
+          }
+  
+        });
+      }
 
     }
     else {

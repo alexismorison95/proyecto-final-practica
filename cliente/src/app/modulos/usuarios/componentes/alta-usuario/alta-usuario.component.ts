@@ -2,9 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+// TOAST
 import { ToastrService } from 'ngx-toastr';
 
+// SERVICIOS
 import { AbmsService } from "../../../../servicios/abms/abms.service";
+
+// INTERFACES
+import { UsuariosInterface } from '../../../../interfaces/usuarios';
+
 
 @Component({
   selector: 'app-alta-usuario',
@@ -47,10 +53,8 @@ export class AltaUsuarioComponent implements OnInit {
       tipousuario: temp.tipoUsuario
     }
 
-    this.abmService.alta(usuario, 'usuarios/alta').subscribe((res: any) => {
+    this.abmService.alta<UsuariosInterface>(usuario, 'usuarios/alta').subscribe(res => {
 
-      console.log(res);
-      
       this.toastr.success(res[0].nombreusuario, 'Guardado');
       this.router.navigate(['/usuarios']);
 

@@ -5,7 +5,7 @@
 INSERT INTO usuario(nombrereal, nombreusuario, contrasenia, tipousuario) VALUES ('martinez juan', 'juan', '1234', 'administrador');
 INSERT INTO usuario(nombrereal, nombreusuario, contrasenia, tipousuario) VALUES ('monzon pedro', 'pedro', '1234', 'administrativo');
 INSERT INTO usuario(nombrereal, nombreusuario, contrasenia, tipousuario) VALUES ('cosso carlos', 'carlos', '1234', 'examinador');
-INSERT INTO usuario(nombrereal, nombreusuario, contrasenia, tipousuario) VALUES ('morison alexis', 'usuario123', '1234', 'examinador');
+INSERT INTO usuario(nombrereal, nombreusuario, contrasenia, tipousuario) VALUES ('morison hernan', 'usuario123', '1234', 'examinador');
 INSERT INTO usuario(nombrereal, nombreusuario, contrasenia, tipousuario) VALUES ('kloss laura', 'laura', '1234', 'examinador');
 
 

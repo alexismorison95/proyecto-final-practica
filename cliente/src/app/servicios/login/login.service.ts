@@ -1,7 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
+// TOAST
 import { ToastrService } from 'ngx-toastr';
+
+// INTERFACES
+import { UsuariosInterface } from '../../interfaces/usuarios';
+
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 export class LoginService {
 
   private logueado: boolean = false;
-  private usuarioActivo: any;
+  private usuarioActivo: UsuariosInterface;
   private datosExaminador: any;
   private readonly URL_API = 'http://localhost:3000/api/';
 
@@ -31,9 +37,9 @@ export class LoginService {
 
   setDatosExaminador(datos) { this.datosExaminador = datos }
 
-  login(usuario: any){
+  login(usuario: any): Observable<UsuariosInterface>{
 
-    return this.http.post(this.URL_API + 'login', usuario, { withCredentials: true });
+    return this.http.post<UsuariosInterface>(this.URL_API + 'login', usuario, { withCredentials: true });
 
   }
 
