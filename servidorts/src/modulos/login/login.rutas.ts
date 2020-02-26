@@ -1,5 +1,6 @@
 import { Request, Response, Router } from "express";
 import { ConexionBD } from "../bbdd/db.conexion";
+import { NotificarError } from "../funciones/funciones";
 
 // Nos conectamos con el usuario login_user de la BBDD para iniciar sesion
 const db = ConexionBD('login_user');
@@ -37,12 +38,7 @@ rutas.post('/login', async (req: Request, res: Response) => {
         }
     }
     catch (e) {
-        // Capturo el error al tratar de conectarse a la bbdd
-        let error = (e as Error).message;
-        console.log(error);
-
-        // Envio el error al cliente
-        res.status(500).json({res: "Error interno del servidor." + error});
+        NotificarError(e, res);
     }
 });
 
