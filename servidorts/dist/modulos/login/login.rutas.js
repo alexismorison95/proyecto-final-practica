@@ -39,9 +39,17 @@ rutas.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* (
         let error = e.message;
         console.log(error);
         // Envio el error al cliente
-        res.status(500).json({
-            res: "Error interno del servidor." + error
-        });
+        res.status(500).json({ res: "Error interno del servidor." + error });
     }
 }));
+// Como hay que tener seguridad, si la persona hace f5 de la pagina, debera volver a iniciar sesion
+// Esta funcion se encarga de verificar si hay una sesion creada
+rutas.get('/f5', (req, res) => {
+    if (req.session.id_usuario) {
+        res.status(200).json({ res: 'Debe volver a iniciar sesion.' });
+    }
+    else {
+        res.status(500).json({ res: 'Sesion no iniciada.' });
+    }
+});
 exports.default = rutas;

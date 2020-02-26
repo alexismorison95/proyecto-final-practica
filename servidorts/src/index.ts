@@ -2,7 +2,6 @@
 import express, { NextFunction, Response, Request } from "express";
 import morgan from "morgan";
 import cors from "cors";
-import pg from "pg";
 import session from "express-session";
 import connectPgSimple from "connect-pg-simple";
 
@@ -11,6 +10,8 @@ import { ConexionBD } from "./modulos/bbdd/db.conexion";
 
 // Imports rutas
 import loginRutas from "./modulos/login/login.rutas";
+import logoutRutas from "./modulos/logout/logout.rutas";
+import conductorRutas from "./modulos/conductor/conductor.rutas";
 
 
 // Inicializaciones
@@ -57,6 +58,8 @@ app.use(sessionActual);
 
 // Rutas
 app.use('/api/', loginRutas);
+app.use('/api/', logoutRutas);
+app.use('/api/', auth, conductorRutas);
 
 
 

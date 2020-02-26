@@ -6,6 +6,7 @@ const db_datos_1 = require("./db.datos");
 function ConexionBD(rol) {
     // Creo una conexion y la retorno
     // Creo un pool ya que en internet dice que permite mejor concurrencia en la bbdd
+    // Y ademas tarda menos tiempo en conectarse
     const pool = new pg_1.Pool({
         user: rol,
         host: db_datos_1.datosConexion.host,

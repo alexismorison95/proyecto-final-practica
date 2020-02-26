@@ -13,6 +13,8 @@ const connect_pg_simple_1 = __importDefault(require("connect-pg-simple"));
 const db_conexion_1 = require("./modulos/bbdd/db.conexion");
 // Imports rutas
 const login_rutas_1 = __importDefault(require("./modulos/login/login.rutas"));
+const logout_rutas_1 = __importDefault(require("./modulos/logout/logout.rutas"));
+const conductor_rutas_1 = __importDefault(require("./modulos/conductor/conductor.rutas"));
 // Inicializaciones
 const app = express_1.default();
 const pgSession = connect_pg_simple_1.default(express_session_1.default);
@@ -46,5 +48,7 @@ app.use(cors_1.default({ origin: 'http://localhost:4200', credentials: true }));
 app.use(sessionActual);
 // Rutas
 app.use('/api/', login_rutas_1.default);
+app.use('/api/', logout_rutas_1.default);
+app.use('/api/', auth, conductor_rutas_1.default);
 app.listen(app.get('port'));
 console.log("Escuchando en el puerto", app.get('port'));
