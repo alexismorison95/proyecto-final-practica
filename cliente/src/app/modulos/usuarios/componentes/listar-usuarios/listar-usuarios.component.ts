@@ -140,7 +140,7 @@ export class ListarUsuariosComponent implements OnInit {
           if (id) {
             
             // Envio la peticion al servidor
-            this.abmService.baja('usuarios/eliminar/' + id).subscribe((res: any) => {
+            this.abmService.baja('usuarios/baja/' + id).subscribe((res: any) => {
   
               console.log(res);
               

@@ -1,5 +1,4 @@
 import { Request, Response, Router } from "express";
-import { ConexionBD } from "../bbdd/db.conexion";
 
 const rutas = Router();
 
@@ -9,7 +8,12 @@ const rutas = Router();
 rutas.get('/logout', (req: Request, res: Response) => {
 
     req.session.destroy(err => {
-        if (err) { console.log(err); }
+
+        if (err) { 
+            console.log(err); 
+            res.status(500).json({res: "Error interno del servidor." + err});
+        }
+
     });
 
     res.status(200).json({res: "Sesión cerrada"});

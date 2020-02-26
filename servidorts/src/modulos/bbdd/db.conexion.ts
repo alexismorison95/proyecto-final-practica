@@ -1,7 +1,11 @@
 import { Pool } from "pg";
 import { datosConexion } from "./db.datos";
 
-// Funcion para conectarse a la bbdd por medio de un rol especificado
+
+/**
+ * Funcion que retorna una conexion con postgreSQL por medio de un rol especificado
+ * @param rol 
+ */
 export function ConexionBD(rol: string) {
 
     // Creo una conexion y la retorno
@@ -27,5 +31,3 @@ export function ConexionBD(rol: string) {
     return pool;
 
 }
-
-//export default conexion;

@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { ConexionBD } from "../bbdd/db.conexion";
+import { NotificarError } from "../funciones/funciones";
 
 
 // ALTA CONDUCTOR
@@ -27,15 +28,10 @@ export async function AltaConductor(req: Request, res: Response) {
         // Error de la transaccion
         await db.query('ROLLBACK');
 
-        let error = (e as Error).message;
-        console.log(error);
-
-        // Envio el error al cliente
-        res.status(500).json({res: "Error interno del servidor." + error});
+        NotificarError(e, res);
     }
 
 }
-
 
 // LISTAR CONDUCTORES
 export async function ListarConductores(req: Request, res: Response) {
@@ -50,16 +46,10 @@ export async function ListarConductores(req: Request, res: Response) {
         res.status(200).json(respuesta.rows);
     } 
     catch (e) {
-        // Capturo el error al tratar de conectarse a la bbdd
-        let error = (e as Error).message;
-        console.log(error);
-        
-        // Envio el error al cliente
-        res.status(500).json({res: "Error interno del servidor." + error});
+        NotificarError(e, res);
     }
 
 }
-
 
 // LISTAR CONDUCTOR
 export async function ListarConductor(req: Request, res: Response) {
@@ -73,12 +63,21 @@ export async function ListarConductor(req: Request, res: Response) {
         res.status(200).json(respuesta.rows[0]);
     } 
     catch (e) {
-        // Capturo el error al tratar de conectarse a la bbdd
-        let error = (e as Error).message;
-        console.log(error);
+        NotificarError(e, res);
+    }
+
+}
+
+// MODIFICAR CONDUCTOR
+export async function ModificarConductor(req: Request, res: Response) {
+
+    const db = ConexionBD(req.session.rol);
+
+    try {
         
-        // Envio el error al cliente
-        res.status(500).json({res: "Error interno del servidor." + error});
+    } 
+    catch (e) {
+        
     }
 
 }

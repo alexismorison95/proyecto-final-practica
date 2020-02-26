@@ -1,5 +1,6 @@
-import { Request, Response, Router } from "express";
-import { AltaConductor, ListarConductores, ListarConductor } from "./conductor.controladores";
+import { Router } from "express";
+import { AltaConductor, ListarConductores, 
+    ListarConductor, ModificarConductor } from "./conductor.controladores";
 
 const rutas = Router();
 
@@ -13,5 +14,8 @@ rutas.get('/conductores/listar', ListarConductores);
 
 // LISTAR CONDUCTOR
 rutas.get('/conductores/listar/:dni', ListarConductor);
+
+// MODIFICAR CONDUCTOR (NO IMPLEMENTADO EN BBDD)
+//rutas.post('/conductores/modificar/:dni', ModificarConductor);
 
 export default rutas;

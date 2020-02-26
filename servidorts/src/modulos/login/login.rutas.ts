@@ -13,8 +13,14 @@ rutas.post('/login', async (req: Request, res: Response) => {
 
     try {
         // Consulta
-        const respuesta = await db.query('select * from usuario where nombreusuario = $1 AND contrasenia = $2;',
-                                        [req.body.nombre, req.body.contrasenia]);
+        const parametros = [
+            req.body.nombre, 
+            req.body.contrasenia
+        ];
+        const respuesta = await db.query(
+            'select * from usuario where nombreusuario = $1 AND contrasenia = $2;',
+            parametros
+        );
         
         // Si trajo un usuario carga su id y rol en la sesion y envia al cliente el usuario
         if (respuesta.rows[0]) {
