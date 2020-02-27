@@ -2,7 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const pg_1 = require("pg");
 const db_datos_1 = require("./db.datos");
-// Funcion para conectarse a la bbdd por medio de un rol especificado
+/**
+ * Funcion que retorna una conexion con postgreSQL por medio de un rol especificado
+ * @param rol
+ */
 function ConexionBD(rol) {
     // Creo una conexion y la retorno
     // Creo un pool ya que en internet dice que permite mejor concurrencia en la bbdd
@@ -24,4 +27,3 @@ function ConexionBD(rol) {
     return pool;
 }
 exports.ConexionBD = ConexionBD;
-//export default conexion;

@@ -19,7 +19,8 @@ export class LoginService {
   private datosExaminador: any;
   private readonly URL_API = 'http://localhost:3000/api/';
 
-  constructor( private http: HttpClient, private toastr: ToastrService ) {
+  constructor(private http: HttpClient, 
+              private toastr: ToastrService) {
 
     this.loginf5();
 
@@ -43,13 +44,11 @@ export class LoginService {
 
   }
 
-
   logout() {
 
     return this.http.get(this.URL_API + 'logout', { withCredentials: true });
 
   }
-
 
   // FUNCION QUE VERIFICA SI EL USUARIO ENTRA POR PRIMERA VEZ O HIZO F5 A LA PAGINA
   loginf5() {

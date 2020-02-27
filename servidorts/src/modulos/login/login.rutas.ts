@@ -1,66 +1,15 @@
-import { Request, Response, Router } from "express";
-import { ConexionBD } from "../bbdd/db.conexion";
-import { NotificarError } from "../funciones/funciones";
+import { Router } from "express";
+import { LogIn, F5 } from "./login.controladores";
 
-// Nos conectamos con el usuario login_user de la BBDD para iniciar sesion
-const db = ConexionBD('login_user');
 const rutas = Router();
 
 
 // DEFINICION DE RUTAS
 // LOGIN
-rutas.post('/login', async (req: Request, res: Response) => {
+rutas.post('/login', LogIn);
 
-    try {
-        // Consulta
-        const parametros = [
-            req.body.nombre, 
-            req.body.contrasenia
-        ];
-        const respuesta = await db.query(
-            'select * from usuario where nombreusuario = $1 AND contrasenia = $2;',
-            parametros
-        );
-        
-        // Si trajo un usuario carga su id y rol en la sesion y envia al cliente el usuario
-        if (respuesta.rows[0]) {
-            
-            // Guardo en la sesion los datos del usuario
-            req.session.id_usuario = respuesta.rows[0].id;
-            req.session.rol = respuesta.rows[0].tipousuario;
-
-            console.log("Logueado en el sistema como", req.session.rol, 
-                        "- id de usuario", req.session.id_usuario);
-
-            // Envio al cliente los datos del usuario logueado
-            res.status(200).json(respuesta.rows[0]);
-
-        }
-        else {
-
-            // Envio al cliente que el usuario o contrasenia no correpsonden
-            res.status(500).json({res: "Usuario o contraseña no validos."});
-
-        }
-    }
-    catch (e) {
-        NotificarError(e, res);
-    }
-});
-
-
-// Como hay que tener seguridad, si la persona hace f5 de la pagina, debera volver a iniciar sesion
-// Esta funcion se encarga de verificar si hay una sesion creada
-rutas.get('/f5', (req: Request, res: Response) => {
-
-    if (req.session.id_usuario) {
-        res.status(200).json({res: 'Debe volver a iniciar sesion.'});
-    }
-    else {
-        res.status(500).json({res: 'Sesion no iniciada.'});
-    }
-    
-})
+// RECARGA DE PAGINA F5
+rutas.get('/f5', F5);
 
 
 export default rutas;

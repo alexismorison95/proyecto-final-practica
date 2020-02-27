@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { CanActivateChild } from '@angular/router';
 
+// SERVICIOS
 import { LoginService } from '../login/login.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -10,13 +11,15 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class GuardChildService implements CanActivateChild {
 
-  constructor( private loginService: LoginService, private router: Router, private toastr: ToastrService ) { }
+  constructor(private loginService: LoginService, 
+              private router: Router, 
+              private toastr: ToastrService) { }
 
   canActivateChild() {
 
     if (!this.loginService.isLogueado()) {
 
-      this.toastr.error('No ha iniciado sesion.', 'Error');
+      //this.toastr.error('No ha iniciado sesion.', 'Error');
       this.router.navigate(['/']);
       return false;
 

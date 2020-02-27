@@ -63,11 +63,13 @@ import { MiPerfilComponent } from './componentes/mi-perfil/mi-perfil.component';
     LoadingBarHttpClientModule,
     LoadingBarRouterModule
   ],
-  providers: [LoginService, 
-              GuardService, 
-              GuardChildService, 
-              AbmsService, 
-              { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }],
+  providers: [
+    LoginService, 
+    GuardService, 
+    GuardChildService, 
+    AbmsService, 
+    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -11,18 +11,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const db_conexion_1 = require("../bbdd/db.conexion");
 const funciones_1 = require("../funciones/funciones");
-// ALTA CONDUCTOR
-function AltaConductor(req, res) {
+// ALTA USUARIO
+function AltaUsuario(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const db = db_conexion_1.ConexionBD(req.session.rol);
         try {
             // Transaccion
             yield db.query('BEGIN');
-            const queryText = 'select * from alta_conductor($1, $2, $3);';
+            const queryText = 'select * from alta_usuario($1, $2, $3, $4);';
             const parametros = [
-                req.body.dni,
-                req.body.nombre,
-                req.body.apellido
+                req.body.nombrereal,
+                req.body.nombreusuario,
+                req.body.contrasenia,
+                req.body.tipousuario
             ];
             const respuesta = yield db.query(queryText, parametros);
             yield db.query('COMMIT');
@@ -36,14 +37,14 @@ function AltaConductor(req, res) {
         }
     });
 }
-exports.AltaConductor = AltaConductor;
-// LISTAR CONDUCTORES
-function ListarConductores(req, res) {
+exports.AltaUsuario = AltaUsuario;
+// LISTAR USUARIOS
+function ListarUsuarios(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const db = db_conexion_1.ConexionBD(req.session.rol);
             // Consulta
-            const respuesta = yield db.query('select * from conductor;');
+            const respuesta = yield db.query('select * from usuario;');
             // Envio respuesta al cliente
             res.status(200).json(respuesta.rows);
         }
@@ -52,14 +53,14 @@ function ListarConductores(req, res) {
         }
     });
 }
-exports.ListarConductores = ListarConductores;
-// LISTAR CONDUCTOR
-function ListarConductor(req, res) {
+exports.ListarUsuarios = ListarUsuarios;
+// LISTAR USUARIO
+function ListarUsuario(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const db = db_conexion_1.ConexionBD(req.session.rol);
-            const parametros = [req.params.dni];
-            const respuesta = yield db.query('select * from conductor where dni = $1;', parametros);
+            const parametros = [req.params.id];
+            const respuesta = yield db.query('select * from usuario where id = $1;', parametros);
             res.status(200).json(respuesta.rows[0]);
         }
         catch (e) {
@@ -67,15 +68,54 @@ function ListarConductor(req, res) {
         }
     });
 }
-exports.ListarConductor = ListarConductor;
-// MODIFICAR CONDUCTOR
-function ModificarConductor(req, res) {
+exports.ListarUsuario = ListarUsuario;
+// ELIMINAR USUARIO
+function BajaUsuario(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const db = db_conexion_1.ConexionBD(req.session.rol);
         try {
+            // Transaccion
+            yield db.query('BEGIN');
+            const queryText = 'select * from baja_usuario($1)';
+            const parametros = [req.body.id];
+            const respuesta = yield db.query(queryText, parametros);
+            yield db.query('COMMIT');
+            // Envio el resultado al cliente
+            res.status(200).json(respuesta.rows[0]);
         }
         catch (e) {
+            // Error de la transaccion
+            yield db.query('ROLLBACK');
+            funciones_1.NotificarError(e, res);
         }
     });
 }
-exports.ModificarConductor = ModificarConductor;
+exports.BajaUsuario = BajaUsuario;
+// MODIFICAR USUARIO
+function ModificarUsuario(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const db = db_conexion_1.ConexionBD(req.session.rol);
+        try {
+            // Transaccion
+            yield db.query('BEGIN');
+            const queryText = 'select * from modificacion_usuario($1, $2, $3, $4, $5)';
+            const parametros = [
+                req.body.id,
+                req.body.nombrereal,
+                req.body.nombreusuario,
+                req.body.contrasenia,
+                req.body.tipousuario
+            ];
+            const respuesta = yield db.query(queryText, parametros);
+            yield db.query('COMMIT');
+            // Envio el resultado al cliente
+            res.status(200).json(respuesta.rows[0]);
+        }
+        catch (e) {
+            // Error de la transaccion
+            yield db.query('ROLLBACK');
+            funciones_1.NotificarError(e, res);
+        }
+    });
+}
+exports.ModificarUsuario = ModificarUsuario;

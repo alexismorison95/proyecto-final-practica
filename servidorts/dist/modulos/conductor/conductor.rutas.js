@@ -10,4 +10,6 @@ rutas.post('/conductores/alta', conductor_controladores_1.AltaConductor);
 rutas.get('/conductores/listar', conductor_controladores_1.ListarConductores);
 // LISTAR CONDUCTOR
 rutas.get('/conductores/listar/:dni', conductor_controladores_1.ListarConductor);
+// MODIFICAR CONDUCTOR (NO IMPLEMENTADO EN BBDD)
+//rutas.post('/conductores/modificar/:dni', ModificarConductor);
 exports.default = rutas;

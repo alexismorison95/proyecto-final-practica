@@ -1,4 +1,4 @@
-// Imports modulos
+// Import modulos
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
@@ -11,7 +11,7 @@ import { ConexionBD } from "./modulos/bbdd/db.conexion";
 // Import funciones
 import { Auth } from "./modulos/funciones/funciones";
 
-// Imports rutas
+// Import rutas
 import loginRutas from "./modulos/login/login.rutas";
 import logoutRutas from "./modulos/logout/logout.rutas";
 import conductorRutas from "./modulos/conductor/conductor.rutas";

@@ -3,14 +3,13 @@ import { datosConexion } from "./db.datos";
 
 
 /**
- * Funcion que retorna una conexion con postgreSQL por medio de un rol especificado
+ * Funcion que crea una conexion con postgreSQL por medio de un rol especificado.
+ * Retorna un pool para poder realizar consultas a la base de datos.
  * @param rol 
  */
-export function ConexionBD(rol: string) {
+export function ConexionBD(rol: string): Pool {
 
     // Creo una conexion y la retorno
-    // Creo un pool ya que en internet dice que permite mejor concurrencia en la bbdd
-    // Y ademas tarda menos tiempo en conectarse
     const pool = new Pool({
         user: rol,
         host: datosConexion.host,
@@ -19,10 +18,12 @@ export function ConexionBD(rol: string) {
         port: datosConexion.port
     });
 
+    // Si se conecto correctamente
     pool.on('connect', () => {
         console.log("Conectado a PostgreSQL como", rol);
     });
 
+    // Si hubo un error
     pool.on('error', err => {
         console.log(err);
         process.exit(0);

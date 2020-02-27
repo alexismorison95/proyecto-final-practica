@@ -4,7 +4,7 @@ const prestamoControlador = require('./prestamo.controlador');
 const rutasPrestamo = express.Router();
 
 
-// DEFINICION DE RUTAS
+// DEFINICION DE RUTprestamoAS
 // ALTA prestamo
 rutasPrestamo.post('/prestamo/alta', prestamoControlador.alta_prestamo);
 

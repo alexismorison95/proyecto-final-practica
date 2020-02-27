@@ -1,4 +1,4 @@
-import { Injectable, Type } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -20,30 +20,30 @@ export class AbmsService {
   }
 
 
-  listarUno<objetoInterface>(ruta: string): Observable<objetoInterface[]> {
+  listarUno<objetoInterface>(ruta: string): Observable<objetoInterface> {
 
-    return this.http.get<objetoInterface[]>(this.URL_API + ruta, { withCredentials: true });
-
-  }
-
-
-  alta<objetoInterface>(objeto: any, ruta: string): Observable<objetoInterface[]> {
-
-    return this.http.post<objetoInterface[]>(this.URL_API + ruta, objeto, { withCredentials: true });
+    return this.http.get<objetoInterface>(this.URL_API + ruta, { withCredentials: true });
 
   }
 
 
-  baja(ruta: string) {
+  alta<objetoInterface>(objeto: any, ruta: string): Observable<objetoInterface> {
 
-    return this.http.delete(this.URL_API + ruta, { withCredentials: true });
+    return this.http.post<objetoInterface>(this.URL_API + ruta, objeto, { withCredentials: true });
 
   }
 
 
-  modificacion(objeto: any, ruta: string) {
+  baja<objetoInterface>(ruta: string): Observable<objetoInterface> {
 
-    return this.http.put(this.URL_API + ruta, objeto, { withCredentials: true });
+    return this.http.delete<objetoInterface>(this.URL_API + ruta, { withCredentials: true });
+
+  }
+
+
+  modificacion<objetoInterface>(objeto: any, ruta: string): Observable<objetoInterface>  {
+
+    return this.http.put<objetoInterface>(this.URL_API + ruta, objeto, { withCredentials: true });
 
   }
   
