@@ -59,12 +59,12 @@ export class LoginComponent implements OnInit {
       if(this.loginService.getUsuarioActivo().tipousuario == 'examinador') {
 
         // Hago la peticion al servidor
-        this.abmsService.listarUno<PrestamosInterface>('prestamo/listar/' + this.loginService.getUsuarioActivo().id)
+        this.abmsService.listarUno<PrestamosInterface>('prestamos/listar/' + this.loginService.getUsuarioActivo().id)
           .subscribe(res => {
 
             console.log(res);
             // Me quedo con el id de prestamo y id de equipo
-            this.loginService.setDatosExaminador({idPrestamo: res[0].id, idEquipo: res[0].idequipo});
+            this.loginService.setDatosExaminador({idPrestamo: res.id, idEquipo: res.idequipo});
             
           }, err => {
 

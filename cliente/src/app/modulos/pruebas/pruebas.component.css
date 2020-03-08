@@ -1,0 +1,8 @@
+.submenu {
+    height: 50px;
+    background-color: rgb(238, 235, 235);
+}
+
+.example-fill-remaining-space {
+    flex: 1 1 auto;
+}

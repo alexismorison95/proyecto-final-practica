@@ -80,7 +80,7 @@ export async function BajaPeriodoUtilizable(req: Request, res: Response) {
         await db.query('BEGIN');
         const queryText = 'select * from baja_periodoutilizable($1)';
         const parametros = [
-            req.body.id
+            req.params.id
         ];
         const respuesta = await db.query(queryText, parametros);
         await db.query('COMMIT');

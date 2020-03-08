@@ -32,11 +32,3 @@ create view vista_resultado_mas_alto_ultimo_mes as
 	ORDER BY prueba.resultado desc
 	LIMIT 1;
 	
---------------------------	
-
-
-
-
-
-
-

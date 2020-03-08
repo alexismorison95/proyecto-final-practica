@@ -3,20 +3,22 @@
     background-color: rgb(238, 235, 235);
 }
 
-.example-fill-remaining-space {
-    flex: 1 1 auto;
+.container1{
+    margin-top: 0%;
+    text-align: center;
+    vertical-align: middle;
 }
 
-.calendario{
-    width: 450px;
+.example-fill-remaining-space {
+    flex: 1 1 auto;
 }
 
 mat-form-field{
     width: 300px;
 }
 
-.columna1{
-    text-align: center;
+.btnCambiarPass{
+    width: 300px;
 }
 
 .btnCancelar{

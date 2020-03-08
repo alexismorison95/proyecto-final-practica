@@ -29,11 +29,7 @@
     <button mat-button *ngIf="administrador || administrativo" [routerLink]="[ '/prestamos' ]" routerLinkActive="active">Préstamos</button>
 
     <!-- MENU PRUEBAS -->
-    <button mat-button *ngIf="examinador" [routerLink]="[ '/pruebas/nueva' ]" routerLinkActive="active">
-        Pruebas
-    </button>
-
-    <button mat-button *ngIf="administrador || administrativo" [routerLink]="[ '/pruebas/verificar' ]" routerLinkActive="active">
+    <button mat-button [routerLink]="[ '/pruebas' ]" routerLinkActive="active">
         Pruebas
     </button>
 

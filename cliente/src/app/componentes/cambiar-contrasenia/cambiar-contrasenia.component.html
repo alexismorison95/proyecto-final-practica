@@ -1,0 +1,40 @@
+<h1 mat-dialog-title>Cambiar contraseña</h1>
+<div mat-dialog-content>
+    
+    <form [formGroup]="formGroup">
+
+        <mat-form-field>
+            <input matInput placeholder="Contraseña actual" formControlName="contraseniaActual" [type]="hide ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+                <mat-icon> {{ hide ? 'visibility_off' : 'visibility' }} </mat-icon>
+            </button>
+        </mat-form-field>
+
+        <br>
+
+        <mat-form-field>
+            <input matInput placeholder="Contraseña nueva" formControlName="contraseniaNueva" [type]="hide2 ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="hide2 = !hide2" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+                <mat-icon> {{ hide2 ? 'visibility_off' : 'visibility' }} </mat-icon>
+            </button>
+        </mat-form-field>
+
+        <br>
+
+        <mat-form-field>
+            <input matInput placeholder="Confirmar nueva contraseña" formControlName="contraseniaNuevaConfirmar" [type]="hide3 ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="hide3 = !hide3" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+                <mat-icon> {{ hide3 ? 'visibility_off' : 'visibility' }} </mat-icon>
+            </button>
+        </mat-form-field>
+
+    </form>
+
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancelar</button>
+    <button mat-button color="primary" [disabled]="formGroup.invalid" type="submit" [mat-dialog-close]="confirmar()">Aceptar</button>
+</div>

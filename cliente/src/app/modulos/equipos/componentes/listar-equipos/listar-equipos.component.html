@@ -52,6 +52,12 @@
                 <td mat-cell *matCellDef="let row"> {{ row.nroactual }} </td>
             </ng-container>
 
+            <!-- Color Column -->
+            <ng-container matColumnDef="fechavencimiento">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header width="200px"> Fecha de vencimiento </th>
+                <td mat-cell *matCellDef="let row"> {{ row.fechavencimiento | date: 'EEEE d, MMMM, yyyy' }} </td>
+            </ng-container>
+
             <tr mat-header-row *matHeaderRowDef="columnasTabla"></tr>
             <tr mat-row *matRowDef="let row; columns: columnasTabla;" (click)="opciones(row)" [ngClass]="{'highlightTableColor': selectedRowIndex == row.id}">
             </tr>

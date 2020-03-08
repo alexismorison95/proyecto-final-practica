@@ -11,80 +11,63 @@
 
 </mat-toolbar>
 
-<!-- El perfil tiene dos partes, un menu de opciones y un contenedor para los datos -->
-<div class="container-fluid">
+<div class="container1">
 
-    <!-- El contenedor tiene dos columnas, en la primera los datos del usuario y acciones
-        En la segunda un calendario -->
-    <div class="row">
+    
+    <form [formGroup]="formGroup">
 
-        <div class="col columna1">
+        <br> <br>
 
-            <form [formGroup]="formGroup">
+        <mat-form-field>
+            <input matInput placeholder="Nombre Real" formControlName="nombreReal">
+        </mat-form-field>
 
-                <br> <br>
+        <br>
 
-                <mat-form-field>
-                    <input matInput placeholder="Nombre Real" formControlName="nombreReal">
-                </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Nombre De Usuario" formControlName="nombreUsuario">
+        </mat-form-field>
 
-                <br>
+        <br>
 
-                <mat-form-field>
-                    <input matInput placeholder="Nombre De Usuario" formControlName="nombreUsuario">
-                </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Tipo De Usuario" formControlName="tipoUsuario">
+        </mat-form-field>
 
-                <br>
+        <br>
 
-                <mat-form-field *ngIf="!modificar">
-                    <input matInput placeholder="Contrasenia" formControlName="contraseniaUsuario"
-                        [type]="hide ? 'password' : 'text'">
-                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                        [attr.aria-pressed]="hide">
-                        <mat-icon> {{ hide ? 'visibility_off' : 'visibility' }} </mat-icon>
-                    </button>
-                </mat-form-field>
+        <mat-form-field *ngIf="!modificar">
+            <input matInput placeholder="Contrasenia" formControlName="contraseniaUsuario"
+                [type]="hide ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+                <mat-icon> {{ hide ? 'visibility_off' : 'visibility' }} </mat-icon>
+            </button>
+        </mat-form-field>
 
-                <!-- FORMULARIO PARA MODIFICAR CONTRASENIA -->
+        <button mat-stroked-button color="warn" class="btnCambiarPass" *ngIf="modificar" (click)="cambiarContrasenia()"> 
+            Modificar contraseña
+        </button>
 
-                <button mat-stroked-button color="warn" *ngIf="modificar"> 
-                    Modificar contraseña
-                </button>
+        <br *ngIf="modificar"> <br *ngIf="modificar"> <br>
 
-                <br *ngIf="modificar"> <br>
+        <button mat-raised-button color="warn" class="btnCancelar" *ngIf="modificar" 
+                (click)="cancelar()"> Cancelar
+        </button>
 
-                <mat-form-field>
-                    <input matInput placeholder="Tipo De Usuario" formControlName="tipoUsuario">
-                </mat-form-field>
-                
-                <br> 
+        <button [disabled]="formGroup.invalid" class="btnAceptar" (click)="guardar()" mat-raised-button
+            type="submit" color="primary" *ngIf="modificar"> Guardar Cambios </button>
+        
+        <div class="espacio" *ngIf="modificar"></div>
 
-                <button mat-raised-button color="warn" class="btnCancelar" *ngIf="modificar" 
-                        (click)="cancelar()"> Cancelar
-                </button>
+        <mat-divider></mat-divider>
 
-                <button [disabled]="formGroup.invalid" class="btnAceptar" (click)="guardar()" mat-raised-button
-                    type="submit" color="primary" *ngIf="modificar"> Guardar Cambios </button>
-                
-                <div class="espacio" *ngIf="modificar"></div>
+    </form>
 
-                <mat-divider></mat-divider>
+    <br>
 
-            </form>
-
-            <br>
-
-            <mat-form-field *ngIf="loginService.getUsuarioActivo().tipousuario == 'examinador'">
-                <input #equipoAsignado matInput placeholder="Equipo Asignado" [disabled]="'true'">
-            </mat-form-field>
-
-        </div>
-
-
-        <div class="col">
-            <mat-calendar class="calendario"></mat-calendar>
-        </div>
-
-    </div>
+    <mat-form-field *ngIf="loginService.getUsuarioActivo().tipousuario == 'examinador'">
+        <input #equipoAsignado matInput placeholder="Equipo Asignado" [disabled]="'true'">
+    </mat-form-field>
 
 </div>

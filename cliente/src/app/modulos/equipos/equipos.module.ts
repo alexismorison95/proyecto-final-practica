@@ -1,5 +1,9 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule, LOCALE_ID } from '@angular/core';
+import { CommonModule, registerLocaleData  } from '@angular/common';
+
+// PARA CAMBIAR IDIOMA DE PIPES A ESPANOL
+import localeEsAr from '@angular/common/locales/es-AR';
+registerLocaleData(localeEsAr, 'es-Ar');
 
 // MATERIAL
 import { MaterialModulo } from "../../app.material";
@@ -22,6 +26,9 @@ import { DialogoEliminarComponent } from './componentes/dialogo-eliminar/dialogo
     EquiposRoutingModule,
     MaterialModulo,
     ReactiveFormsModule
+  ],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'es-Ar' }
   ],
   entryComponents: [DialogoEliminarComponent]
 })

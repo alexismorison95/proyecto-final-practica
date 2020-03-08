@@ -9,14 +9,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogoEliminarComponent } from "../dialogo-eliminar/dialogo-eliminar.component";
 
 // INTERFACES
-import { EquiposInterface } from "../../../../interfaces/equipos";
+import { EquipoMasPeriodoInterface } from "../../../../interfaces/equipoMasPeriodo";
 
 // TOAST
 import { ToastrService } from 'ngx-toastr';
 
 // SERVICIOS
-import { LoginService } from "../../../../servicios/login/login.service";
 import { AbmsService } from "../../../../servicios/abms/abms.service";
+
 
 @Component({
   selector: 'app-listar-equipos',
@@ -25,8 +25,8 @@ import { AbmsService } from "../../../../servicios/abms/abms.service";
 })
 export class ListarEquiposComponent implements OnInit {
 
-  columnasTabla: string[] = ['id', 'nombre', 'estado', 'nroactual'];
-  datos: MatTableDataSource<EquiposInterface>;
+  columnasTabla: string[] = ['id', 'nombre', 'estado', 'nroactual', 'fechavencimiento'];
+  datos: MatTableDataSource<EquipoMasPeriodoInterface>;
 
   @ViewChild(MatPaginator, { static: true }) paginador: MatPaginator;
   @ViewChild(MatSort, { static: true }) ordenar: MatSort;
@@ -39,7 +39,6 @@ export class ListarEquiposComponent implements OnInit {
   constructor(private abmService: AbmsService, 
               private router: Router,
               public dialog: MatDialog,
-              private loginService: LoginService, 
               private toastr: ToastrService) {
     
     this.cargarTabla();
@@ -63,8 +62,8 @@ export class ListarEquiposComponent implements OnInit {
 
   cargarTabla() {
 
-    this.abmService.listarTodos<EquiposInterface>('equipo/listar').subscribe(res => {
-
+    this.abmService.listarTodos<EquipoMasPeriodoInterface>('equipos/listarperiodo').subscribe(res => {
+      
       this.datos = new MatTableDataSource(res);
 
       this.datos.paginator = this.paginador;
@@ -119,7 +118,7 @@ export class ListarEquiposComponent implements OnInit {
 
       if (id) {
 
-        this.abmService.baja('equipo/baja/' + id).subscribe((res: any) => {
+        this.abmService.baja('equipos/baja/' + id).subscribe((res: any) => {
 
           console.log(res);
 

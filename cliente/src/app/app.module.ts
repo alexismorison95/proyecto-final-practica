@@ -36,6 +36,7 @@ import { LoginComponent } from './componentes/login/login.component';
 import { NavbarComponent } from './componentes/navbar/navbar.component';
 import { NotFoundComponent } from './componentes/not-found/not-found.component';
 import { MiPerfilComponent } from './componentes/mi-perfil/mi-perfil.component';
+import { CambiarContraseniaComponent } from './componentes/cambiar-contrasenia/cambiar-contrasenia.component';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { MiPerfilComponent } from './componentes/mi-perfil/mi-perfil.component';
     LoginComponent,
     NavbarComponent,
     NotFoundComponent,
-    MiPerfilComponent
+    MiPerfilComponent,
+    CambiarContraseniaComponent
   ],
   imports: [
     BrowserModule,

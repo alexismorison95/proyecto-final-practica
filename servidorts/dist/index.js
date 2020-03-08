@@ -14,9 +14,14 @@ const db_conexion_1 = require("./modulos/bbdd/db.conexion");
 // Import funciones
 const funciones_1 = require("./modulos/funciones/funciones");
 // Import rutas
+const conductor_rutas_1 = __importDefault(require("./modulos/conductor/conductor.rutas"));
+const dominio_rutas_1 = __importDefault(require("./modulos/dominio/dominio.rutas"));
+const equipo_rutas_1 = __importDefault(require("./modulos/equipo/equipo.rutas"));
 const login_rutas_1 = __importDefault(require("./modulos/login/login.rutas"));
 const logout_rutas_1 = __importDefault(require("./modulos/logout/logout.rutas"));
-const conductor_rutas_1 = __importDefault(require("./modulos/conductor/conductor.rutas"));
+const periodoutilizable_rutas_1 = __importDefault(require("./modulos/periodoutilizable/periodoutilizable.rutas"));
+const prestamo_rutas_1 = __importDefault(require("./modulos/prestamo/prestamo.rutas"));
+const prueba_rutas_1 = __importDefault(require("./modulos/prueba/prueba.rutas"));
 const usuario_rutas_1 = __importDefault(require("./modulos/usuario/usuario.rutas"));
 // Inicializaciones
 const app = express_1.default();
@@ -44,6 +49,11 @@ app.use(sessionActual);
 app.use('/api/', login_rutas_1.default);
 app.use('/api/', logout_rutas_1.default);
 app.use('/api/', funciones_1.Auth, conductor_rutas_1.default);
+app.use('/api/', funciones_1.Auth, dominio_rutas_1.default);
+app.use('/api/', funciones_1.Auth, equipo_rutas_1.default);
+app.use('/api/', funciones_1.Auth, periodoutilizable_rutas_1.default);
+app.use('/api/', funciones_1.Auth, prestamo_rutas_1.default);
+app.use('/api/', funciones_1.Auth, prueba_rutas_1.default);
 app.use('/api/', funciones_1.Auth, usuario_rutas_1.default);
 app.listen(app.get('port'));
 console.log("Escuchando en el puerto", app.get('port'));

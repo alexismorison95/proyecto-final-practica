@@ -77,10 +77,12 @@ export async function BajaUsuario(req: Request, res: Response) {
         // Transaccion
         await db.query('BEGIN');
         const queryText = 'select * from baja_usuario($1)';
-        const parametros = [req.body.id];
+        const parametros = [req.params.id];
         const respuesta = await db.query(queryText, parametros);
         await db.query('COMMIT');
 
+        console.log(respuesta.rows);
+        
         // Envio el resultado al cliente
         res.status(200).json(respuesta.rows[0]);
     } 

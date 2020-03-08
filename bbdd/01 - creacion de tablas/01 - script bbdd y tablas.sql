@@ -25,7 +25,7 @@ create table dominio (
 create table examinador (
 	id serial primary key,
 	nombrereal varchar not null,
-	activo boolean default true,
+	activo boolean not null,
 	idusuario int references usuario(id)
 );
 
@@ -38,7 +38,7 @@ create table equipo (
 
 create table periodoutilizable (
 	id serial primary key,
-	activo boolean default true,
+	activo boolean not null,
 	fechainicio date not null,
 	fechavencimiento date not null,
 	nroingreso int not null,
@@ -47,7 +47,7 @@ create table periodoutilizable (
 
 create table prestamo (
 	id serial primary key,
-	activo boolean default true,
+	activo boolean not null,
 	fechaprestamo date not null,
 	horaprestamo time not null,
 	nroinicial int not null,
@@ -69,6 +69,7 @@ create table prueba (
 	verificado boolean default false,
 	rechazado boolean default false,
 	descripcionrechazo varchar,
+	idverificador int,
 	dniconductor varchar references conductor(dni),
 	iddominio varchar references dominio(id),
 	idprestamo int references prestamo(id)

@@ -13,6 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 import { EquiposInterface } from '../../../../interfaces/equipos';
 import { ConductoresInterface } from '../../../../interfaces/conductores';
 import { DominiosInterface } from '../../../../interfaces/dominio';
+import { PruebasInterface } from 'src/app/interfaces/prueba';
 
 
 @Component({
@@ -31,9 +32,9 @@ export class NuevaPruebaComponent implements OnInit {
   listaConductores: ConductoresInterface[];
   listaVehiculos: DominiosInterface[];
 
-  idConductor;
-  idDominio;
-  numeroActualEquipo;
+  idConductor: string;
+  idDominio: string;
+  numeroActualEquipo: number;
 
 
   constructor(private formBuilder: FormBuilder, 
@@ -47,12 +48,12 @@ export class NuevaPruebaComponent implements OnInit {
     
     if(loginService.getUsuarioActivo().tipousuario == 'examinador') {
 
-      this.abmsService.listarUno<EquiposInterface>('equipo/listar/' + this.loginService.getDatosExaminador().idEquipo)
+      this.abmsService.listarUno<EquiposInterface>('equipos/listar/' + this.loginService.getDatosExaminador().idEquipo)
       .subscribe(res => { 
 
         console.log(res);
         
-        this.numeroActualEquipo = res[0].nroactual
+        this.numeroActualEquipo = res.nroactual;
         this.examenFormGroup.patchValue({ numeroMuestraExamen: this.numeroActualEquipo });
 
       });
@@ -62,6 +63,13 @@ export class NuevaPruebaComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.buildForm();
+
+  }
+
+
+  buildForm() {
 
     this.conductorFormGroup = this.formBuilder.group({
       dni: ['', Validators.required],
@@ -120,17 +128,20 @@ export class NuevaPruebaComponent implements OnInit {
     this.abmsService.listarUno<ConductoresInterface>('conductores/listar/' + this.conductorFormGroup.value.dni).subscribe(res => {
 
       // No existe el conductor, lo doy de alta
-      if(res[0] == null) {
+      if(res == null) {
 
         const aux = this.conductorFormGroup.value;
-        const conductor: any = {dni: aux.dni,
-                                nombre: aux.nombreConductor,
-                                apellido: aux.apellidoConductor}
+        const conductor: ConductoresInterface = {
+          dni: aux.dni,
+          nombre: aux.nombreConductor,
+          apellido: aux.apellidoConductor
+        }
 
-        this.abmsService.alta(conductor, 'conductores/alta').subscribe((res: any) => {
+        this.abmsService.alta<ConductoresInterface>(conductor, 'conductores/alta')
+        .subscribe(res => {
 
           console.log(res);
-          this.idConductor = res[0].dni;
+          this.idConductor = res.dni;
           
         }, err => {
 
@@ -142,7 +153,7 @@ export class NuevaPruebaComponent implements OnInit {
       else {
 
         // Como el conductor ya existe me guardo el id del conductor
-        this.idConductor = res[0].dni;
+        this.idConductor = res.dni;
         
       }
       
@@ -159,7 +170,7 @@ export class NuevaPruebaComponent implements OnInit {
   
   cargarVehiculos() {
 
-    this.abmsService.listarTodos<DominiosInterface>('dominio/listar').subscribe(res => {
+    this.abmsService.listarTodos<DominiosInterface>('dominios/listar').subscribe(res => {
 
       this.listaVehiculos = res;
       
@@ -182,20 +193,22 @@ export class NuevaPruebaComponent implements OnInit {
 
   verificarVehiculo() {
 
-    this.abmsService.listarUno<DominiosInterface>('dominio/listar/' + this.vehiculoFormGroup.value.dominioVehiculo)
+    this.abmsService.listarUno<DominiosInterface>('dominios/listar/' + this.vehiculoFormGroup.value.dominioVehiculo)
       .subscribe(res => {
 
-        if(res[0] == null) {
+        if(res == null) {
 
           // dominio no existe
           const aux = this.vehiculoFormGroup.value;
-          const dominio: any = {id: aux.dominioVehiculo,
-                                descripcion: aux.descripcionVehiculo}
+          const dominio: DominiosInterface = {
+            id: aux.dominioVehiculo,
+            descripcion: aux.descripcionVehiculo
+          }
           
-          this.abmsService.alta(dominio, 'dominio/alta').subscribe((res: any) => {
+          this.abmsService.alta<DominiosInterface>(dominio, 'dominios/alta').subscribe(res => {
 
             console.log(res);
-            this.idDominio = res[0].id;
+            this.idDominio = res.id;
             
           }, err => {
 
@@ -207,7 +220,7 @@ export class NuevaPruebaComponent implements OnInit {
         else {
 
           // dominio si existe
-          this.idDominio = res[0].id
+          this.idDominio = res.id
 
         }
 
@@ -232,20 +245,27 @@ export class NuevaPruebaComponent implements OnInit {
     const fecha = hoy.getDate() + '/' + (hoy.getMonth()+1) + '/' + hoy.getFullYear();
     const hora = hoy.getHours() + ':' + hoy.getMinutes();
     
-    if(documentacionDatos.numeroActaDocumentacion == "" && 
-        documentacionDatos.numeroRetencionDocumentacion == ""){
+    // if(documentacionDatos.numeroActaDocumentacion == "" && 
+    //     documentacionDatos.numeroRetencionDocumentacion == ""){
 
-      documentacionDatos.numeroActaDocumentacion = 0;
-      documentacionDatos.numeroRetencionDocumentacion = 0;
+    //   documentacionDatos.numeroActaDocumentacion = 0;
+    //   documentacionDatos.numeroRetencionDocumentacion = 0;
 
+    // }
+
+    const prueba: PruebasInterface = {
+      fecha: fecha, 
+      hora: hora, 
+      nromuestra: this.numeroActualEquipo,
+      resultado: parseFloat(examenDatos.resultadoExamen), 
+      nroacta: parseInt(documentacionDatos.numeroActaDocumentacion),
+      nroretencion: parseInt(documentacionDatos.numeroRetencionDocumentacion), 
+      dniconductor: parseInt(conductorDatos.dni), 
+      iddominio: vehiculoDatos.dominioVehiculo,
+      idprestamo: parseInt(this.loginService.getDatosExaminador().idPrestamo)
     }
-
-    const prueba:any = {fecha: fecha, hora: hora, nromuestra: this.numeroActualEquipo,
-                        resultado: examenDatos.resultadoExamen, nroacta: documentacionDatos.numeroActaDocumentacion,
-                        nroretencion: documentacionDatos.numeroRetencionDocumentacion, dniconductor:conductorDatos.dni, iddominio: vehiculoDatos.dominioVehiculo,
-                        idprestamo: this.loginService.getDatosExaminador().idPrestamo}
     
-    this.abmsService.alta(prueba, 'prueba/alta').subscribe(res => {
+    this.abmsService.alta<PruebasInterface>(prueba, 'pruebas/alta').subscribe(res => {
 
       console.log(res);
       this.toastr.success('Nueva prueba guardada', 'Guardado');

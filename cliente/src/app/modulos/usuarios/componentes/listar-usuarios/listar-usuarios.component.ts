@@ -140,12 +140,12 @@ export class ListarUsuariosComponent implements OnInit {
           if (id) {
             
             // Envio la peticion al servidor
-            this.abmService.baja('usuarios/baja/' + id).subscribe((res: any) => {
+            this.abmService.baja<UsuariosInterface>('usuarios/baja/' + id).subscribe(res => {
   
               console.log(res);
               
               // Muestro confirmacion y recargo la tabla
-              this.toastr.success(res[0].nombreusuario, 'Eliminado con exito');
+              this.toastr.success(res.nombreusuario, 'Eliminado con exito');
               this.cargarTabla();
               
               // reinicio la seleccion de fila

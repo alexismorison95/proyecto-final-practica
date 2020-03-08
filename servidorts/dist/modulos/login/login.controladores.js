@@ -33,7 +33,7 @@ function LogIn(req, res) {
             }
             else {
                 // Envio al cliente que el usuario o contrasenia no correpsonden
-                res.status(500).json({ res: "Usuario o contraseña no validos." });
+                res.status(404).json({ res: "Usuario o contraseña no validos." });
             }
         }
         catch (e) {

@@ -16,6 +16,6 @@ rutas.get('/periodosutilizables/listar', ListarPeriodosUtilizables);
 rutas.get('/periodosutilizables/listar/:id', ListarPeriodoUtilizable);
 
 // MODIFICAR periodoutilizable
-rutas.put('/periodosutilizables/baja', BajaPeriodoUtilizable)
+rutas.put('/periodosutilizables/baja/:id', BajaPeriodoUtilizable)
 
 export default rutas;

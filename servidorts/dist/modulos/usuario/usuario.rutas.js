@@ -13,5 +13,5 @@ rutas.get('/usuarios/listar/:id', usuario_controladores_1.ListarUsuario);
 // ELIMINAR USUARIO
 rutas.delete('/usuarios/baja/:id', usuario_controladores_1.BajaUsuario);
 // MODIFICAR USUARIO
-rutas.post('/usuarios/modificar/:id', usuario_controladores_1.ModificarUsuario);
+rutas.put('/usuarios/modificar', usuario_controladores_1.ModificarUsuario);
 exports.default = rutas;

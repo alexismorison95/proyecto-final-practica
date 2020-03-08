@@ -49,6 +49,26 @@ export async function ListarEquipos(req: Request, res: Response) {
 
 }
 
+// LISTAR EQUIPOS + PERIODOUTILIZABLE
+export async function ListarEquiposPU(req: Request, res: Response) {
+
+    try {
+        const db = ConexionBD(req.session.rol);
+
+        // Consulta
+        const query: string = 'select * from equipo join (select activo as activopu, fechainicio, fechavencimiento, nroingreso, idequipo from periodoutilizable where activo=true) pu on equipo.id = pu.idequipo;';
+        
+        const respuesta = await db.query(query);
+
+        // Envio respuesta al cliente
+        res.status(200).json(respuesta.rows);
+    } 
+    catch (e) {
+        NotificarError(e, res);
+    }
+
+}
+
 // LISTAR EQUIPO
 export async function ListarEquipo(req: Request, res: Response) {
 
@@ -78,7 +98,7 @@ export async function BajaDominio(req: Request, res: Response) {
         await db.query('BEGIN');
         const queryText = 'select * from baja_equipo($1)';
         const parametros = [
-            req.body.id
+            req.params.id
         ];
         const respuesta = await db.query(queryText, parametros);
         await db.query('COMMIT');

@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { Pool } from "pg";
+import { Pool, QueryResult } from "pg";
 
 // ARCHIVO PARA DEFINIR FUNCIONES REUTILIZABLES
 
@@ -47,7 +47,7 @@ export function Auth(req: Request, res: Response, next: NextFunction) {
  * @param queryText 
  * @param parametros 
  */
-export async function Transaccion(db: Pool, queryText: string, parametros: any) {
+export async function Transaccion(db: Pool, queryText: string, parametros: any): Promise<QueryResult> {
 
     await db.query('BEGIN');
     const respuesta = await db.query(queryText, parametros);

@@ -19,6 +19,6 @@ rutas.get('/usuarios/listar/:id', ListarUsuario);
 rutas.delete('/usuarios/baja/:id', BajaUsuario);
 
 // MODIFICAR USUARIO
-rutas.post('/usuarios/modificar/:id', ModificarUsuario);
+rutas.put('/usuarios/modificar', ModificarUsuario);
 
 export default rutas;

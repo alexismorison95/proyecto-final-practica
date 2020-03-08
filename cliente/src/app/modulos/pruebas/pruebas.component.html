@@ -1,2 +1,22 @@
+<mat-toolbar class="submenu">
+    Opciones
+
+    <span class="example-fill-remaining-space"></span>
+
+    <button mat-stroked-button color="primary" [routerLink]="[ '/pruebas/nueva' ]">
+        Nueva Prueba
+    </button>
+
+    <span style="width: 10px;" *ngIf="!examinador"></span>
+    <button mat-stroked-button color="primary" *ngIf="!examinador" [routerLink]="[ '/pruebas/verificar' ]">
+        Verificar Pruebas
+    </button>
+
+    <span style="width: 10px;" *ngIf="!examinador"></span>
+    <button mat-stroked-button color="primary" *ngIf="!examinador" [routerLink]="[ '/pruebas/listar' ]">
+        Listar Pruebas
+    </button>
+
+</mat-toolbar>
 
 <router-outlet></router-outlet>

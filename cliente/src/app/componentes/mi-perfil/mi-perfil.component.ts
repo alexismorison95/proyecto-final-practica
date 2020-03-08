@@ -1,6 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from "@angular/router";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+
+// DIALOGO
+import { CambiarContraseniaComponent } from "../cambiar-contrasenia/cambiar-contrasenia.component";
 
 // SERVICIOS
 import { LoginService } from "../../servicios/login/login.service";
@@ -8,6 +12,7 @@ import { AbmsService } from "../../servicios/abms/abms.service";
 
 // INTERFACES
 import { EquiposInterface } from "../../interfaces/equipos";
+import { UsuariosInterface } from 'src/app/interfaces/usuarios';
 
 
 @Component({
@@ -21,16 +26,14 @@ export class MiPerfilComponent implements OnInit {
 
   public formGroup: FormGroup; // Formulario
   hide = true; // Valor bool para mostrar o ocultar la contrasenia
-  hide2 = true;
-  hide3 = true;
-  hide4 = true;
   modificar = false; // Valor bool para poder modificar los datos de usuario
 
 
   constructor(private loginService: LoginService, 
               private router: Router, 
               private formBuilder: FormBuilder,
-              private abmsService: AbmsService) { }
+              private abmsService: AbmsService,
+              public dialog: MatDialog) { }
 
   ngOnInit() {
 
@@ -67,12 +70,12 @@ export class MiPerfilComponent implements OnInit {
     if(this.loginService.getUsuarioActivo().tipousuario == 'examinador') {
 
       // Peticion al servidor
-      this.abmsService.listarUno<EquiposInterface>('equipo/listar/' + this.loginService.getDatosExaminador().idEquipo)
+      this.abmsService.listarUno<EquiposInterface>('equipos/listar/' + this.loginService.getDatosExaminador().idEquipo)
         .subscribe(res => {
 
           // Muestro el equipo asignado al examinador
           // TODO: Puede ser que el examinador no tenga equipo asignado
-          this.equipoAsignado.nativeElement.value = res[0].nombre;
+          this.equipoAsignado.nativeElement.value = res.nombre;
 
         }, err => {
 
@@ -118,22 +121,44 @@ export class MiPerfilComponent implements OnInit {
 
   }
 
+  cambiarContrasenia() {
+
+    // Abro el dialogo para cambiar contrasenia
+    const dialogRef = this.dialog.open(CambiarContraseniaComponent, {
+      width: '410px',
+      data: this.loginService.getUsuarioActivo().contrasenia
+    });
+
+    dialogRef.afterClosed().subscribe(contrasenia => {
+
+      if (contrasenia) {
+        
+        this.formGroup.controls.contraseniaUsuario.patchValue(contrasenia);
+        
+      }
+
+    });
+
+  }
+
   // Funcion que se llama al guardar la modificacion de usuario
   // TODO: al modificar contrasenia ir a nueva pagina y modificar con actual y nueva, etc...
   guardar() {
 
     const aux = this.formGroup.value;
 
-    const usuario = { id: this.loginService.getUsuarioActivo().id,
-                      nombrereal: aux.nombreReal,
-                      nombreusuario: aux.nombreUsuario,
-                      contrasenia: aux.contraseniaUsuario,
-                      tipousuario: this.loginService.getUsuarioActivo().tipousuario }
+    const usuario = {
+      id: this.loginService.getUsuarioActivo().id,
+      nombrereal: aux.nombreReal,
+      nombreusuario: aux.nombreUsuario,
+      contrasenia: aux.contraseniaUsuario,
+      tipousuario: this.loginService.getUsuarioActivo().tipousuario
+    }
     
-    this.abmsService.modificacion(usuario, 'usuarios/modificar/' + this.loginService.getUsuarioActivo().id)
+    this.abmsService.modificacion<UsuariosInterface>(usuario, 'usuarios/modificar')
       .subscribe(res => {
 
-        this.loginService.setUsuarioActivo(res[0]);
+        this.loginService.setUsuarioActivo(res);
 
         this.modificar = false;
         this.formGroup.disable();

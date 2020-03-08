@@ -1,5 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
-import { Router } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
 
 // SERVICIOS
 import { LoginService } from "../../servicios/login/login.service";
@@ -16,7 +15,7 @@ export class NavbarComponent implements OnInit {
   private administrativo: boolean = false;
   private examinador: boolean = false;
 
-  constructor( private loginService: LoginService, private router: Router ) { }
+  constructor( private loginService: LoginService ) { }
 
   ngOnInit() {
 

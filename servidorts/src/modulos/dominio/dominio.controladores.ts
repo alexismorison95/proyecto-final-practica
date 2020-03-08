@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { ConexionBD } from "../bbdd/db.conexion";
-import { NotificarError } from "../funciones/funciones";
+import { NotificarError, Transaccion } from "../funciones/funciones";
 
 // ALTA DOMINIO
 export async function AltaDominio(req: Request, res: Response) {
@@ -9,14 +9,13 @@ export async function AltaDominio(req: Request, res: Response) {
 
     try {
         // Transaccion
-        await db.query('BEGIN');
         const queryText = 'select * from alta_dominio($1, $2);';
         const parametros = [
             req.body.id, 
             req.body.descripcion
         ];
-        const respuesta = await db.query(queryText, parametros);
-        await db.query('COMMIT');
+
+        const respuesta = await Transaccion(db, queryText, parametros);
 
         // Envio el resultado al cliente
         res.status(200).json(respuesta.rows[0]);

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { AltaEquipo, ListarEquipo, ListarEquipos, BajaDominio } from "./equipo.controladores";
+import { AltaEquipo, ListarEquipo, ListarEquipos, BajaDominio, ListarEquiposPU } from "./equipo.controladores";
 
 const rutas = Router();
 
@@ -8,13 +8,16 @@ const rutas = Router();
 // ALTA EQUIPO
 rutas.post('/equipos/alta', AltaEquipo);
 
-// LISTAR EQUIPO
+// LISTAR EQUIPOS
 rutas.get('/equipos/listar', ListarEquipos);
+
+// LISTAR EQUIPOS + PERIODOUTILIZABLE
+rutas.get('/equipos/listarperiodo', ListarEquiposPU);
 
 // LISTAR EQUIPO
 rutas.get('/equipos/listar/:id', ListarEquipo);
 
 // MODIFICAR EQUIPO
-rutas.put('/equipos/baja', BajaDominio)
+rutas.put('/equipos/baja/:id', BajaDominio)
 
 export default rutas;

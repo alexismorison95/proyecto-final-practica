@@ -9,6 +9,7 @@ import { GuardChildService } from "./servicios/guard-child/guard-child.service";
 import { LoginComponent } from './componentes/login/login.component';
 import { NotFoundComponent } from "./componentes/not-found/not-found.component";
 import { MiPerfilComponent } from "./componentes/mi-perfil/mi-perfil.component";
+import { CambiarContraseniaComponent } from "./componentes/cambiar-contrasenia/cambiar-contrasenia.component";
 
 
 const routes: Routes = [
@@ -36,6 +37,8 @@ const routes: Routes = [
     .then(m => m.ReportesModule), canActivateChild: [GuardChildService] },
   
   { path: 'perfil', component: MiPerfilComponent, canActivate: [GuardService] },
+
+  { path: 'contrasenia', component: CambiarContraseniaComponent, canActivate: [GuardService] },
 
   { path: '**', component: NotFoundComponent, canActivate: [GuardService] }
 ];

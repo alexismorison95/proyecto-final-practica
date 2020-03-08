@@ -12,9 +12,14 @@ import { ConexionBD } from "./modulos/bbdd/db.conexion";
 import { Auth } from "./modulos/funciones/funciones";
 
 // Import rutas
+import conductorRutas from "./modulos/conductor/conductor.rutas";
+import dominioRutas from "./modulos/dominio/dominio.rutas";
+import equipoRutas from "./modulos/equipo/equipo.rutas";
 import loginRutas from "./modulos/login/login.rutas";
 import logoutRutas from "./modulos/logout/logout.rutas";
-import conductorRutas from "./modulos/conductor/conductor.rutas";
+import periodoUtilizableRutas from "./modulos/periodoutilizable/periodoutilizable.rutas";
+import prestamoRutas from "./modulos/prestamo/prestamo.rutas";
+import pruebaRutas from "./modulos/prueba/prueba.rutas";
 import usuarioRutas from "./modulos/usuario/usuario.rutas";
 
 
@@ -51,6 +56,11 @@ app.use(sessionActual);
 app.use('/api/', loginRutas);
 app.use('/api/', logoutRutas);
 app.use('/api/', Auth, conductorRutas);
+app.use('/api/', Auth, dominioRutas);
+app.use('/api/', Auth, equipoRutas);
+app.use('/api/', Auth, periodoUtilizableRutas);
+app.use('/api/', Auth, prestamoRutas);
+app.use('/api/', Auth, pruebaRutas);
 app.use('/api/', Auth, usuarioRutas);
 
 
